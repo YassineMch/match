@@ -16,7 +16,7 @@ target_rad = target_yaw * math.pi/180
 kP = 0.3
 kL = 0.3
 target_x = 1
-v_max = 0.3
+v_max = 0.7
 
 state = 0
 state_1 = 0

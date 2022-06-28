@@ -1,3 +1,0 @@
-[submodule "marvelmind_pkg"]
-	path = marvelmind_pkg
-	url = https://bitbucket.org/marvelmind_robotics/ros_marvelmind_package.git

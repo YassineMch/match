@@ -1,0 +1,8 @@
+[submodule "ros_marvelmind_package"]
+	path = ros_marvelmind_package
+	url = https://bitbucket.org/marvelmind_robotics/ros_marvelmind_package.git
+	branch = master
+[submodule "rplidar_ros"]
+	path = rplidar_ros
+	url = https://github.com/robopeak/rplidar_ros.git
+	branch = master

@@ -33,7 +33,7 @@ r = rospy.Rate(4)
 
 goal = Point ()
 goal.x = 5
-goal.y = 5
+goal.y = 3
  
 while not rospy.is_shutdown():
     inc_x = goal.x - x

@@ -14,3 +14,4 @@
 * right click on floor-> Add floormap
 * upload map.png
 * right click on the floor map and scale settig  
+* HELP 

@@ -10,3 +10,7 @@
  * allow access to USB port ACM0 '$sudo chmod 666 /dev/ttyACM0'
  * Hedgehog Setting: In Interfaces -> Steaming Output must be Set to USB+Uart. Protocol on UART/USB output must be set to Marvelmind
  
+### Add floor to Dashboard 
+* right click on floor-> Add floormap
+* upload map.png
+* right click on the floor map and scale settig  

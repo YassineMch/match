@@ -5,6 +5,11 @@
 * Matchtowe (159) 4,24m
 * Drucker (81) 3,45m
 
+### change user git and commit
+* git config --global user.email
+* git config --global user.name
+* git commit -a
+
 ### Serial USB on Linux 
  * show all ACM USB ports '$sudo chmod 666 /dev/ttyACM0'
  * allow access to USB port ACM0 '$sudo chmod 666 /dev/ttyACM0'
@@ -15,7 +20,5 @@
 * upload map.png
 * right click on the floor map and scale settig  
 
-### change user git and commit
-* git config --global user.email
-* git config --global user.name
-* git commit -a
+### Display frequency 
+* rostopic hz /topicname

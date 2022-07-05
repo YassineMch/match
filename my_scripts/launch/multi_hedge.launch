@@ -6,7 +6,7 @@
         <node name="hegde1" pkg="marvelmind_nav" type="hedge_rcv_bin" output="screen" args= "/dev/ttyACM1" />
     </group>
 
-    <group ns="hedge2_">
+    <group ns="hedge2">
         <node name="hegde2" pkg="marvelmind_nav" type="hedge_rcv_bin" output="screen" args= "/dev/ttyACM2"/>
     </group>
 

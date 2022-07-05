@@ -14,4 +14,8 @@
 * right click on floor-> Add floormap
 * upload map.png
 * right click on the floor map and scale settig  
-* HELP Motherfucker!!
+
+### change user git and commit
+* git config --global user.email
+* git config --global user.name
+* git commit -a

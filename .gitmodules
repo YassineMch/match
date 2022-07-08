@@ -6,3 +6,6 @@
 	path = rplidar_ros
 	url = https://github.com/robopeak/rplidar_ros.git
 	branch = master
+[submodule "match_mobile_robotics"]
+	path = match_mobile_robotics
+	url = https://github.com/match-ROS/match_mobile_robotics.git

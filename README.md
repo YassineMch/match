@@ -14,7 +14,7 @@
  * show all ACM USB ports '$sudo chmod 666 /dev/ttyACM0'
  * allow access to USB port ACM0 '$sudo chmod 666 /dev/ttyACM0'
  * Hedgehog Setting: In Interfaces -> Steaming Output must be Set to USB+Uart. Protocol on UART/USB output must be set to Marvelmind
- 
+
 ### ROS and Marvelmind
 Get Location data from Hedgehog:
 * connect hedgehog via USB and check for the port (usually /dev/ttyACM0)
@@ -25,6 +25,10 @@ Get Location data from Hedgehog:
 * set location where rosmaster is running in bashrc, needs to be set in hosts file too
 * setup plotjuggler on host pc `$sudo apt-get install ros-noetic-plotjuggler-ros`
 * use plotjuggler on host pc to visualize topic data `$rosrun 
+
+### record a topic 
+
+* rosbag record --duration=30 /hedge1/hedge_pos_ang
 
  
 ### Add floor to Dashboard 

@@ -52,3 +52,6 @@ Get Location data from Hedgehog:
 * change to sgilx `$ ssh agilx`
 * connect to the robot `$ sudo chmod 666 /dev/ttyUSB0`
 * run lidar `$ roslaunch my_scripts start_omni.launch`
+* add the map at rviz 
+* change fixed frame to odom
+* change it back to map and adjust the position of the robot using 2D pose Estimate

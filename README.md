@@ -1,6 +1,6 @@
 ## Marvelmind Hardware Setup 
 ### Beacons Height 
-* Werkstatt (157) 4,87m 
+* Werkstatt (157) 4,87m x:3.55m y:7.83
 * Hiwi_Raum (115) 4m
 * Matchtower (159) 4,24m
 * Drucker (81) 3,45m

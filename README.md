@@ -2,7 +2,7 @@
 ### Beacons Height 
 * Werkstatt (157) 4,87m 
 * Hiwi_Raum (115) 4m
-* Matchtowe (159) 4,24m
+* Matchtower (159) 4,24m
 * Drucker (81) 3,45m
 
 ### change user git and commit

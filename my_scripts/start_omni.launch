@@ -1,5 +1,5 @@
 <launch> 
-    <include file="$(find scout_bringup)/launch/scout_mini_robot_base.launch" />
+    <include file="$(find scout_bringup)/launch/scout_mini_minimal.launch" />
 
     <node pkg="tf" type="static_transform_publisher" name="rp_lidar_link" args="-0.1 0 0.1 0 0 0 /base_link /laser 100"/>
 

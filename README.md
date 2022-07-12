@@ -43,3 +43,12 @@ Get Location data from Hedgehog:
 * YassineMch
 * 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 
 
+### transformation between map and odom
+* rosrun tf static_transform_publisher 8 12 0 0 0 0 map odom 1
+
+### run rviz and run the robot 
+* run rviz im terminal 
+* add the map by runnin `$roslaunch my_scripts launch_map_match.launch `
+* change to sgilx `$ ssh agilx`
+* connect to the robot `$ sudo chmod 666 /dev/ttyUSB0`
+* run lidar `$ roslaunch my_scripts start_omni.launch`

@@ -9,3 +9,6 @@
 [submodule "scout_ros"]
 	path = scout_ros
 	url = https://github.com/westonrobot/scout_ros.git
+[submodule "ugv_sdk"]
+	path = ugv_sdk
+	url = https://github.com/westonrobot/ugv_sdk.git

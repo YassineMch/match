@@ -42,6 +42,7 @@ Get Location data from Hedgehog:
 ### TOCKEN and Username
 * YassineMch
 * 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 
+* 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 :HiwiRaum
 
 ### transformation between map and odom
 * rosrun tf static_transform_publisher 8 12 0 0 0 0 map odom 1

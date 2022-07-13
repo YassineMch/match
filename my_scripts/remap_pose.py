@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
 from marvelmind_nav.msg import hedge_pos_ang
@@ -14,7 +14,6 @@ def callback_marvelmind_pos(msg_pos):
     
 # define header 
     global seq_init
-
     pose_out.header.seq = seq_init
     seq_init += 1
 
@@ -22,7 +21,6 @@ def callback_marvelmind_pos(msg_pos):
     pose_out.header.frame_id = 'odom'
 
 
- 
 # position
     pose_out.pose.position.x = msg_pos.x_m
     pose_out.pose.position.y = msg_pos.y_m
@@ -36,11 +34,8 @@ def callback_marvelmind_pos(msg_pos):
     
     pub.publish(pose_out)
 
-if __name__ == '__main__':
-    
+if __name__ =='__main__':
     rospy.init_node('remap_pose')
-    
     sub = rospy.Subscriber("hedge1/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos)
-    pub = rospy.Publisher("/pose_marvelmind", PoseStamped, queue_size=10)
-    
+    pub = rospy.Publisher("/pos_marvelmind", PoseStamped, queue_size=10)
     rospy.spin()

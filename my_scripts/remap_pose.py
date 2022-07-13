@@ -29,7 +29,7 @@ def callback_marvelmind_pos(msg_pos):
 #Quaterion 
     pose_out.pose.orientation.x = 0
     pose_out.pose.orientation.y = 0
-    pose_out.pose.orientation.z = 0
+    pose_out.pose.orientation.z = msg_pos.angle
     pose_out.pose.orientation.w = 0
     
     pub.publish(pose_out)

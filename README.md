@@ -6,8 +6,8 @@
 * Drucker (81) 3,45m
 
 ### change user git and commit
-* git config --global user.email
-* git config --global user.name
+* git config --local user.email
+* git config --local user.name
 * git commit -a
 
 ### Serial USB on Linux 

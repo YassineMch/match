@@ -25,18 +25,19 @@ def callback_marvelmind_pos_2(msg_pos_2):
     
     pose_out.header.seq = seq_init
     seq_init += 1
+    
     pose_out.header.stamp = rospy.Time.now()
     pose_out.header.frame_id = 'map'
 
 # position
-    pose_out.pose.position.x = (msg_pos_1.x_m + msg_pos_2.x_m)/2
-    pose_out.pose.position.y = (msg_pos_1.y_m + msg_pos_2.y_m)/2
-    pose_out.pose.position.z = (msg_pos_1.z_m + msg_pos_2.z_m)/2
+    pose_out.pose.position.x = (x_1 + x_2)/2
+    pose_out.pose.position.y = (y_1 + y_2)/2
+    pose_out.pose.position.z = (z_1 + z_2)/2
 
 #Quaterion 
     pose_out.pose.orientation.x = 0
     pose_out.pose.orientation.y = 0
-    pose_out.pose.orientation.z = msg_pos_1.angle
+    pose_out.pose.orientation.z = 0
     pose_out.pose.orientation.w = 0
     
     pub.publish(pose_out)
@@ -44,8 +45,8 @@ def callback_marvelmind_pos_2(msg_pos_2):
 if __name__ =='__main__':
     rospy.init_node('remap_pose')
     
-    rospy.Subscriber("/hedge1/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_1)
-    rospy.Subscriber("/hedge2/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_2)
-    rospy.Publisher("/position_marvelmind", PoseStamped, queue_size=10)
+    sub_1=rospy.Subscriber("/hedge1/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_1)
+    sub_2=rospy.Subscriber("/hedge2/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_2)
+    pub=rospy.Publisher("/position_marvelmind", PoseStamped, queue_size=10)
 
     rospy.spin()

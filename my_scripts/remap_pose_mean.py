@@ -1,19 +1,29 @@
 #!/usr/bin/env python3
 
 import rospy
+import math 
 from marvelmind_nav.msg import hedge_pos_ang
 from geometry_msgs.msg import PoseStamped
+from tf import transformations
+
 
 seq_init = 0 
 pose_out = PoseStamped()
 
+x_1 = 0
+y_1 = 0
+z_1 = 0
+x_2 = 0
+y_0 = 0
+z_2 = 0
+angle = 0
 def callback_marvelmind_pos_1(msg_pos_1):   
-    global  x_1, y_1, z_1
+    global  x_1, y_1, z_1, angle
 
     x_1 = msg_pos_1.x_m
     y_1 = msg_pos_1.y_m
     z_1 = msg_pos_1.z_m
-
+    angle = (msg_pos_1.angle*math.pi)/180
 
 def callback_marvelmind_pos_2(msg_pos_2):   
     global seq_init, x_2, y_2, z_2
@@ -35,10 +45,13 @@ def callback_marvelmind_pos_2(msg_pos_2):
     pose_out.pose.position.z = (z_1 + z_2)/2
 
 #Quaterion 
-    pose_out.pose.orientation.x = 0
-    pose_out.pose.orientation.y = 0
-    pose_out.pose.orientation.z = 0
-    pose_out.pose.orientation.w = 0
+
+    [x_quaternion,y_quaternion,z_quaternion,w_quaternion] = transformations.quaternion_from_euler (0, 0, angle)
+
+    pose_out.pose.orientation.x = x_quaternion
+    pose_out.pose.orientation.y = y_quaternion
+    pose_out.pose.orientation.z = z_quaternion
+    pose_out.pose.orientation.w = w_quaternion
     
     pub.publish(pose_out)
 

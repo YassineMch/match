@@ -2,17 +2,23 @@
 
 import rospy
 import tf
-import position_marvelmind.msg
+import geometry_msgs.msg
+from geometry_msgs.msg import PoseStamped
 
-def callback_position(msg_pos, args):
-
-    br = tf.TransformBroadcaster()
-    br.sendTransform ((msg_pos.pose.orientation.x, msg_pos.pose.orientation.y, 0), (msg_pos.pose.orientation.x, msg_pos.pose.orientation.y. msg_pos.pose.orientation.z, msg_pos.pose.orientation.w), rospy.Time.now(), args[1], args[2] )
+def callback_position(msg_pos):
+    
+    bc = tf.TransformBroadcaster()
+    t = geometry_msgs.msg.TransformStamped()
+    t.header.stamp = rospy.Time.now()
+    t.header.frame_id = "map"
+    t.child_frame_id = "base_link"
+    t.transform.translation = msg_pos.pose.pose.position
+    t.transform.rotation = msg_pos.pose.pose.orientation
+    bc.sendTransform(t)
     
     
     
     if __name__ =='__main__':
         rospy.init_node('maptransformation')
-    
-    
-    sub = rospy.Subscriber("/position_marvelmind", PoseStamped, callback_position)
+        rospy.Subscriber("/position_marvelmind", PoseStamped, callback_position)
+        rospy.spin()

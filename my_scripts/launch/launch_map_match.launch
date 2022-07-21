@@ -2,5 +2,5 @@
 
   <arg name="map_file" default="$(find my_scripts)/floorplan/new_map.yaml"/>       <!-- path of map file -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="true" />
-  
+  <node pkg="my_scripts" type="remap_pose_mean.py" name="remap_pose_mean" />
 </launch>

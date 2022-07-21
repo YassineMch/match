@@ -17,6 +17,7 @@ x_2 = 0
 y_0 = 0
 z_2 = 0
 angle = 0
+
 def callback_marvelmind_pos_1(msg_pos_1):   
     global  x_1, y_1, z_1, angle
 

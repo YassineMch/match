@@ -40,5 +40,6 @@ if __name__ =='__main__':
     variance_z = statistics.variance(z)
     variance_yaw = statistics.variance (yaw)
     
-    print('variance x =', variance_x, 'variance y =', variance_y,  'variance z =', variance_z, 'variance yaw =', variance_yaw)
     
+    print('variance x =', variance_x, 'variance y =', variance_y,  'variance z =', variance_z, 'variance yaw =', variance_yaw)
+   

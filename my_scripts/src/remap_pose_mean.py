@@ -24,14 +24,15 @@ def callback_marvelmind_pos_1(msg_pos_1):
     x_1 = msg_pos_1.x_m
     y_1 = msg_pos_1.y_m
     z_1 = msg_pos_1.z_m
-    angle = (msg_pos_1.angle*math.pi)/180
+    #angle = (msg_pos_1.angle*math.pi)/180
 
 def callback_marvelmind_pos_2(msg_pos_2):   
     global seq_init, x_2, y_2, z_2
+    
     x_2 = msg_pos_2.x_m
     y_2 = msg_pos_2.y_m
     z_2 = msg_pos_2.z_m
-    
+    angle = (msg_pos_2.angle*math.pi)/180
 # define header 
     
     pose_out.header.seq = seq_init

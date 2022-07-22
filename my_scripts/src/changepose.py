@@ -6,7 +6,7 @@ t_n = 0
 
 def callback_position(msg_in):
     global t_n
-    update_rate = 10 
+    update_rate = 4
     rospy.get_time()
     
     #transfer Data to PoseWithCovariancestamped

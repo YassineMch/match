@@ -49,7 +49,7 @@ Get Location data from Hedgehog:
 
 ### run rviz and run the robot 
 * run rviz im terminal 
-* add the map by runnin `$roslaunch my_scripts launch_map_match.launch `
+* add the map by runnin `$roslaunch my_scripts launch_map_match.launch ` agliex
 * change to sgilx `$ ssh agilx`
 * connect to the robot `$ sudo chmod 666 /dev/ttyUSB0`
 * run lidar `$ roslaunch my_scripts start_omni.launch`

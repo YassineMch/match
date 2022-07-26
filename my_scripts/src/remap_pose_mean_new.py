@@ -2,10 +2,8 @@
 
 import rospy
 import math 
-from marvelmind_nav.msg import hedge_pos_ang
+from marvelmind_nav.msg import hedge_pos_ang, hedge_imu_fusion
 from geometry_msgs.msg import PoseStamped
-from tf import transformations
-
 
 seq_init = 0 
 pose_out = PoseStamped()
@@ -47,13 +45,12 @@ def callback_marvelmind_pos_2(msg_pos_2):
     pose_out.pose.position.z = (z_1 + z_2)/2
 
 #Quaterion 
+def callback_marvelmind_pos_3(msg_pos_imu):   
 
-    [x_quaternion,y_quaternion,z_quaternion,w_quaternion] = transformations.quaternion_from_euler (0, 0, angle)
-
-    pose_out.pose.orientation.x = x_quaternion
-    pose_out.pose.orientation.y = y_quaternion
-    pose_out.pose.orientation.z = z_quaternion
-    pose_out.pose.orientation.w = w_quaternion
+    pose_out.pose.orientation.x = msg_pos_imu.qx
+    pose_out.pose.orientation.y = msg_pos_imu.qy
+    pose_out.pose.orientation.z = msg_pos_imu.qz
+    pose_out.pose.orientation.w = msg_pos_imu.qw
     
     pub.publish(pose_out)
 
@@ -62,6 +59,7 @@ if __name__ =='__main__':
     
     sub_1=rospy.Subscriber("/hedge1/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_1)
     sub_2=rospy.Subscriber("/hedge2/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_2)
-    pub=rospy.Publisher("/position_marvelmind", PoseStamped, queue_size=10)
+    sub_2 = rospy.Subscriber("/hedge1/hedge_imu_fusion", hedge_imu_fusion , callback_marvelmind_pos_3)
+    pub=rospy.Publisher("/position_marvelmind_fused", PoseStamped, queue_size=10)
 
     rospy.spin()

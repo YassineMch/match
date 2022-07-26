@@ -12,3 +12,6 @@
 [submodule "ugv_sdk"]
 	path = ugv_sdk
 	url = https://github.com/westonrobot/ugv_sdk.git
+[submodule "robot_localization"]
+	path = robot_localization
+	url = https://github.com/cra-ros-pkg/robot_localization.git

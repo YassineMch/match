@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
-# Dieses Script dient dazu, zu der Initial Pose (tf map to odom anhand vom )
+# Dieses Script dient dazu, zu der Initial Pose (tf map to odom anhand vom AMCL) upzudaten anhang der Pose-Daten von den mobielen Beacons 
 
 import rospy
 from geometry_msgs.msg import PoseWithCovarianceStamped
-from geometry_msgs.msg import PoseStamped
+
 
 
 initpose_msg = PoseWithCovarianceStamped()
@@ -23,7 +23,7 @@ if __name__=='__main__':
     rospy.init_node("changepose")
 
     rate = rospy.Rate(10)
-    sub = rospy.Subscriber("/position_marvelmind", PoseStamped, callback_position)
+    sub = rospy.Subscriber("/position_marvelmind", PoseWithCovarianceStamped, callback_position)
     pub = rospy.Publisher("/initialpose", PoseWithCovarianceStamped, queue_size=10)
 
     while not rospy.is_shutdown():
@@ -34,5 +34,3 @@ if __name__=='__main__':
                 rospy.loginfo('Published')
                 break
 rate.sleep ()
-
-    

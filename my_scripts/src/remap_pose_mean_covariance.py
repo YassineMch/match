@@ -63,7 +63,7 @@ def callback_marvelmind_pos_3(msg_pos_imu):
     pub.publish(pose_out)
 
 if __name__ =='__main__':
-    rospy.init_node('remap_pose')
+    rospy.init_node('remap_pose_mean_covariance')
 
     rate = rospy.Rate(10)
     sub_1 = rospy.Subscriber("/hedge1/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_1)

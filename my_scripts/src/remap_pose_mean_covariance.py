@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# mit diesem Skript werden Daten aus dem Marvelmind hedge_pos_ang und hedge_imu_fusion Topics in einem oseWithCovarianceStamped msg gespeichert werden 
+# mit diesem Skript werden Daten aus dem Marvelmind hedge_pos_ang und hedge_imu_fusion Topics in einem PoseWithCovarianceStamped msg gespeichert werden 
 
 import rospy
 import math 

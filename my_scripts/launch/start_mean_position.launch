@@ -1,5 +1,0 @@
-<launch> 
-
-<node pkg="my_scripts" type="remap_pose_mean.py" name="remap_pose_mean" />
-
-</launch>

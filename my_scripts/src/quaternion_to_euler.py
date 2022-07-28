@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+#anhand dieses Skriptes könnte eine Quaternion to euler transformation durchgeführt werden
+
 import math
 import rospy
 from marvelmind_nav.msg import hedge_imu_fusion

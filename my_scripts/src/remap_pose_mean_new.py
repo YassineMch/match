@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# mit diesem Skript werden Daten aus dem Marvelmind hedge_pos_ang und hedge_imu_fusion Topics in einem PoseStamped msg gespeichert werden 
+
 import rospy
 import math 
 from marvelmind_nav.msg import hedge_pos_ang, hedge_imu_fusion

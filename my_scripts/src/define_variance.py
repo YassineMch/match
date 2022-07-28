@@ -1,5 +1,8 @@
 #! /usr/bin/env python3
 
+# Diesen Script berechnet die Variance der einzelnen variabeln für die Covarianzmatrix 
+# daten werden aus dem Stationary Zustand ausgewertet und der Noise des System damit ermittelt
+ 
 import rospy
 import time
 import statistics

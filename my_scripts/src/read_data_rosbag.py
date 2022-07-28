@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-
+# anhand von diesem Skript werden Data aus einer .bag Datei extracted werden und in einem csv Datei gespeichert werden 
 #import rospy
 import rosbag
 import statistics

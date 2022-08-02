@@ -6,4 +6,6 @@
 
     <include file="$(find my_scripts)/launch/amcl.launch" />
     
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="true" />
+    
 </launch>

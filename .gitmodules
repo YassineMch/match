@@ -15,6 +15,4 @@
 [submodule "robot_localization"]
 	path = robot_localization
 	url = https://github.com/cra-ros-pkg/robot_localization.git
-[submodule "slam_gmapping"]
-	path = slam_gmapping
-	url = https://github.com/ros-perception/slam_gmapping.git
+

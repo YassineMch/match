@@ -13,7 +13,8 @@
 ### Serial USB on Linux 
  * show all ACM USB ports '$sudo chmod 666 /dev/ttyACM0'
  * allow access to USB port ACM0 '$sudo chmod 666 /dev/ttyACM0'
- * Hedgehog Setting: In Interfaces -> Steaming Output must be Set to USB+Uart. Protocol on UART/USB output must be set to Marvelmind
+ * Hedgehog Setting: In Interfaces -> Steaming Output must be Set to USB+Uart. Protocol on UART/USB output must 
+ be set to Marvelmind
 
 ### ROS and Marvelmind
 Get Location data from Hedgehog:
@@ -48,12 +49,12 @@ Get Location data from Hedgehog:
 * rosrun tf static_transform_publisher 8 12 0 0 0 0 map odom 1
 
 ### run rviz and run the robot 
-
+* 
 * change to sgilx `$ ssh agilx`
 * connect to the robot `$ sudo chmod 666 /dev/ttyUSB0`
 * connect to Hedge 1 `$ sudo chmod 666 /dev/ttyACM0`
 * connect to Hedge 2 `$ sudo chmod 666 /dev/ttyACM1`
-* run Robot and Hedges and map `$ roslaunch my_scripts start_omni.launch` Agliex
+* run Robot and Hedges and map `$ roslaunch my_scripts start_omni_agilex.launch` Agliex
 * run rviz im terminal 
 * add the map at rviz 
 * change fixed frame to odom

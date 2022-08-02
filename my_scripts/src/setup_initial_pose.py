@@ -10,26 +10,24 @@ initpose_msg = PoseWithCovarianceStamped()
 
 def callback_position(msg_in):
     #transfer Data to PoseWithCovariancestamped
-    
-    initpose_msg.header = msg_in.header
-    initpose_msg.pose.pose = msg_in.pose
 
-    #covariance matrix mit der Variance von den Punkten bestimmt
-    initpose_msg.pose.covariance = [0.007376561813186813, 0, 0, 0, 0, 0, 0, 0.007376561813186813, 0, 0, 0, 0, 0, 0, 0.007376561813186813, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.865003690775747e-06]
+    initpose_msg.header = msg_in.header
+    initpose_msg.pose = msg_in.pose
+
     
 
 
 if __name__=='__main__':
     rospy.init_node("setup_initial_pose")
 
-    rate = rospy.Rate(10)
-    sub = rospy.Subscriber("/position_marvelmind", PoseWithCovarianceStamped, callback_position)
+    rate = rospy.Rate(1)
+    sub = rospy.Subscriber("/position_marvelmind_with_covariance", PoseWithCovarianceStamped, callback_position)
     pub = rospy.Publisher("/initialpose", PoseWithCovarianceStamped, queue_size=10)
 
     while not rospy.is_shutdown():
             connections = pub.get_num_connections()
             rospy.loginfo('Connections: %d', connections)
-            if connections > 0 and initpose_msg.pose.pose.position.x != 0:
+            if connections > 2 and initpose_msg.pose.pose.position.x != 0:
                 pub.publish(initpose_msg)
                 rospy.loginfo('Published')
                 break

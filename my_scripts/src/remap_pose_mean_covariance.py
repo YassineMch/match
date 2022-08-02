@@ -3,7 +3,6 @@
 # mit diesem Skript werden Daten aus dem Marvelmind hedge_pos_ang und hedge_imu_fusion Topics in einem PoseWithCovarianceStamped msg gespeichert werden 
 
 import rospy
-import math 
 from marvelmind_nav.msg import hedge_pos_ang, hedge_imu_fusion
 from geometry_msgs.msg import PoseWithCovarianceStamped
 
@@ -41,24 +40,24 @@ def callback_marvelmind_pos_2(msg_pos_2):
     pose_out.header.frame_id = 'map'
 
 # mean position from Beacons pose data
-    pose_out.pose.position.x = (x_1 + x_2)/2
-    pose_out.pose.position.y = (y_1 + y_2)/2
-    pose_out.pose.position.z = (z_1 + z_2)/2
+    pose_out.pose.pose.position.x = (x_1 + x_2)/2
+    pose_out.pose.pose.position.y = (y_1 + y_2)/2
+    pose_out.pose.pose.position.z = 0      # mit Absicht auf null
 
 # Quaterion from imu_fused data
 def callback_marvelmind_pos_3(msg_pos_imu):   
 
-    pose_out.pose.orientation.x = msg_pos_imu.qx
-    pose_out.pose.orientation.y = msg_pos_imu.qy
-    pose_out.pose.orientation.z = msg_pos_imu.qz
-    pose_out.pose.orientation.w = msg_pos_imu.qw
+    pose_out.pose.pose.orientation.x = 0 # mit Absicht auf null
+    pose_out.pose.pose.orientation.y = 0 # mit Absicht auf null
+    pose_out.pose.pose.orientation.z = msg_pos_imu.qz
+    pose_out.pose.pose.orientation.w = msg_pos_imu.qw
 
 # covariance matrix with variance data from stationary state of the Beacons 
-    pose_out.pose.covariance = [0.007376561813186813, 0, 0, 0, 0, 0,
-                                0, 0.007376561813186813, 0, 0, 0, 0,
-                                0, 0, 0.007376561813186813, 0, 0, 0,
+    pose_out.pose.covariance = [0.04783418046042617, 0, 0, 0, 0, 0,
+                                0, 0.04189385245433789, 0, 0, 0, 0,
+                                0, 0, 0.0016022922374429218, 0, 0, 0,
                                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                                0, 0, 0, 0, 0, 1.865003690775747e-06]
+                                0, 0, 0, 0, 0, 1.6018519786910204e-05]
 
     pub.publish(pose_out)
 

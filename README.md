@@ -46,7 +46,7 @@ Get Location data from Hedgehog:
 * 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:HiwiRaum
 
 ### transformation between map and odom
-* rosrun tf static_transform_publisher 8 12 0 0 0 0 map odom 1
+* AMCL
 
 ### run rviz and run the robot 
 * 
@@ -57,5 +57,6 @@ Get Location data from Hedgehog:
 * run Robot and Hedges and map `$ roslaunch my_scripts start_omni_agilex.launch` Agliex
 * run rviz im terminal 
 * add the map at rviz 
-* change fixed frame to odom
-* change it back to map and adjust the position of the robot using 2D pose Estimate
+* add /initialpose PoseWithCovariance 
+* add /cliked_point PoseWithCovariance
+* change the Initial Position by running `$ rosrun my_scripts setup_initial_pose.py `

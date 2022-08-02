@@ -5,7 +5,4 @@
     <include file="$(find rplidar_ros)/launch/rplidar_a3.launch" />
 
     <include file="$(find my_scripts)/launch/amcl.launch" />
-
-
-    
 </launch>

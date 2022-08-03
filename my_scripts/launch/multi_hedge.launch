@@ -1,7 +1,5 @@
 <launch>
 
-
-
     <group ns="hedge1">
         <node name="hegde1" pkg="marvelmind_nav" type="hedge_rcv_bin" output="screen" args= "/dev/ttyACM0" />
     </group>

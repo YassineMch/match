@@ -1,0 +1,8 @@
+<launch>
+
+  <!-- AMCL and Beacon Extended Kalman Filter-->
+  <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_map" clear_params="true">
+    <rosparam command="load" file="$(my_scripts)/sensor_fusion_parameter/robot_localization_map_odom.yaml" />
+  </node>
+
+</launch>

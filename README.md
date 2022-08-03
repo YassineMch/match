@@ -1,62 +1,66 @@
-## Marvelmind Hardware Setup 
-### Beacons Height 
-* Werkstatt (157) 4,87m x:3.55m y:7.83
-* Hiwi_Raum (115) 4m
-* Matchtower (159) 4,24m
-* Drucker (81) 3,45m
+# Master Arbeit Yassine Mechri
 
-### change user git and commit
-* git config --local user.email
-* git config --local user.name
-* git commit -a
+## Marvelmind Hardware 
+* Marvelmind Indoor Navigation System is an off-the-shelf indoor navigation system, designed to provide precise (±2cm) location data to autonomous robots
+* Mobile beacon’s location is calculated based on a propagation delay of an ultrasonic pulses (Time-Of-Flight or TOF) between stationary and mobile beacons using trilateration algorithm. 
 
-### Serial USB on Linux 
- * show all ACM USB ports '$sudo chmod 666 /dev/ttyACM0'
- * allow access to USB port ACM0 '$sudo chmod 666 /dev/ttyACM0'
- * Hedgehog Setting: In Interfaces -> Steaming Output must be Set to USB+Uart. Protocol on UART/USB output must 
- be set to Marvelmind
+### Steps to set up the System
 
-### ROS and Marvelmind
-Get Location data from Hedgehog:
+1. Place the Stationary Beacons on the wall in a was that will provide an optimal ultrasonic coverage. dor a 2D navigation, 2 Stationary beacons are sufficient
+2.  connect the modem to a PC and run the Dashboard Software to wake up all the Beacons (stationary and Mobile)
+3. Check that the radio settings on the modem and the radio settings on the beacon are the same
+4. enter the hight of the Sattionary beacons:
+
+ - Werkstatt (157) z: 4.87m, x:3.55m, y:7.83m
+ - Hiwi_Raum (115) z: 4m
+ - Matchtower (159) z: 4,24m
+ - Drucker (81) z: 3,45m 
+
+ 5. The map will form and zoom in automatically  
+ 6. add a map of the room and adjust the position of the beacons accoding to their current position in the room: 
+  - right click on floor-> Add floormap
+  - upload map.png
+  -right click on the floor map and scale settig  
+
+ More detailed description of the system is to find on the manual privided by [Marvelmind] (https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+
+
+### Marvelmind using ROS
+* Hedgehog Setting: In Interfaces -> Steaming Output must be Set to USB+Uart. Protocol on UART/USB output must be set to Marvelmind
+**Get Location data from Hedgehog:**
 * connect hedgehog via USB and check for the port (usually /dev/ttyACM0)
 * start roscore with `$roscore`
 * start hedgehog data receiving script `$rosrun marvelmind_nav hedge_rcv_bin /dev/ttyACM0`
 * show location data `$rostopic echo /hedge_pos_a`
-* show IMU data `$rostopic echo /hedge_imu_fusion`
-* set location where rosmaster is running in bashrc, needs to be set in hosts file too
-* setup plotjuggler on host pc `$sudo apt-get install ros-noetic-plotjuggler-ros`
-* use plotjuggler on host pc to visualize topic data `$rosrun 
+* show IMU data `$rostopic echo /hedge_imu_fusion` ; `$rostopic echo /hedge_imu_raw`
 
-### record a topic 
+### Useful functions with ros 
+**Visulisation of topics**
+- use plotjuggler on host pc to visualize topic data
+**Recording of topics**
+- rosbag record --duration=30 /hedge1/hedge_pos_ang
+**FDisplay frequency of Publishing**
+- rostopic hz /topicname
 
-* rosbag record --duration=30 /hedge1/hedge_pos_ang
+### setup git hub, kommit, push and pull
+* git config --local user.email
+* git config --local user.name
+* git commit -a
+* git push
+* git pull
 
- 
-### Add floor to Dashboard 
-* right click on floor-> Add floormap
-* upload map.png
-* right click on the floor map and scale settig  
+### steps to run Agilex and run rviz
 
-### Display frequency 
-* rostopic hz /topicname
-
-### TOCKEN and Username
-* YassineMch
-* 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 
-* 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:HiwiRaum
-
-### transformation between map and odom
-* AMCL
-
-### run rviz and run the robot 
-* 
-* change to sgilx `$ ssh agilx`
-* connect to the robot `$ sudo chmod 666 /dev/ttyUSB0`
-* connect to Hedge 1 `$ sudo chmod 666 /dev/ttyACM0`
-* connect to Hedge 2 `$ sudo chmod 666 /dev/ttyACM1`
-* run Robot and Hedges and map `$ roslaunch my_scripts start_omni_agilex.launch` Agliex
-* run rviz im terminal 
-* add the map at rviz 
-* add /initialpose PoseWithCovariance 
-* add /cliked_point PoseWithCovariance
-* change the Initial Position by running `$ rosrun my_scripts setup_initial_pose.py `
+* Change to sgilx `$ ssh agilx`
+* Change user on .bashrc:
+  - ` sudo nano .bashrc`
+  - `source .bashrc`
+* Connect to the robot `$ sudo chmod 666 /dev/ttyUSB0`
+* Connect to Hedge 1 `$ sudo chmod 666 /dev/ttyACM0`
+* Connect to Hedge 2 `$ sudo chmod 666 /dev/ttyACM1`
+* Run Robot and Hedges and map `$ roslaunch my_scripts start_omni_agilex.launch` Agliex
+* Run rviz im terminal 
+* add Topics to rviz:
+  - add /initialpose PoseWithCovariance 
+  - add /cliked_point PoseWithCovariance
+  - change the Initial Position by running `$ rosrun my_scripts setup_initial_pose.py `

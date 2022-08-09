@@ -10,9 +10,9 @@ from array import array
 x = []
 y = []
 z = []
-yaw = []
+# yaw = []
 
-bag = rosbag.Bag ('/home/ros/catkin_ws_yassin/src/match/my_work/aufnahmen/aufnahme_0.2_ms/2022-08-05-13-13-14.bag')
+bag = rosbag.Bag ('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_stationary_nlos/2022-08-05-13-36-54.bag')
 
 # open the .bag file
 
@@ -34,14 +34,14 @@ z = np.array ([z])
 #change the name of the file if required
 
 
-np.savetxt('/home/ros/catkin_ws_yassin/src/match/aufnahmen/2022-08-05-13-48-37_x_odom.csv',x, delimiter=",", header="position in x direction for 1.6 m/s odom")
-np.savetxt('/home/ros/catkin_ws_yassin/src/match/aufnahmen/2022-08-05-13-48-37_y_odom.csv',y, delimiter=",", header="position in y direction for 1.6 m/s odom")
-np.savetxt('/home/ros/catkin_ws_yassin/src/match/aufnahmen/2022-08-05-13-48-37_z_odom.csv',z, delimiter=",", header="position in z direction for 1.6 m/s odom")
+np.savetxt('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_stationary_nlos/2022-08-05-13-36-54_x_odom.csv',x, delimiter=",", header="position in x direction for 1.6 m/s odom")
+np.savetxt('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_stationary_nlos/2022-08-05-13-36-54_y_odom.csv',y, delimiter=",", header="position in y direction for 1.6 m/s odom")
+np.savetxt('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_stationary_nlos/2022-08-05-13-36-54_z_odom.csv',z, delimiter=",", header="position in z direction for 1.6 m/s odom")
 #np.savetxt('/home/ros/catkin_ws_yassin/src/match/my_scripts/recording/myresults/yaw_30_sec_stationary.csv',yaw, delimiter=",", header="orientation variation in yaw direction")
 
 # in case to print an array
 
-print ('position variation in x direction:', x, 'position variation in y direction:', y, 'position variation in z direction:', z, 'orientation variation in yaw direction:', yaw)
+#print ('position variation in x direction:', x, 'position variation in y direction:', y, 'position variation in z direction:', z)
 
 #print (x)
 

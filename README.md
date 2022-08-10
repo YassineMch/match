@@ -39,6 +39,8 @@
 - use plotjuggler on host pc to visualize topic data
 **Recording of topics**
 - rosbag record --duration=30 /hedge1/hedge_pos_ang
+- rosbag record --duration=3m /amcl_pose /position_marvelmind_with_covariance /odom /cmd_vel /hedge1/hedge_imu_raw /hedge2/hedge_imu_raw 
+
 **FDisplay frequency of Publishing**
 - rostopic hz /topicname
 
@@ -63,4 +65,5 @@
 * add Topics to rviz:
   - add /initialpose PoseWithCovariance 
   - add /cliked_point PoseWithCovariance
+  - run `$ rosrun my_scripts remap_pose_mean_covariance.py `
   - change the Initial Position by running `$ rosrun my_scripts setup_initial_pose.py `

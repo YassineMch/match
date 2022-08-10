@@ -1,96 +1,108 @@
 #!/usr/bin/env python3
 
 
-
+# We always import roslib, and load the manifest to handle dependencies
 import rospy
-from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Twist, Point
-from math import atan2, degrees
-from tf.transformations import euler_from_quaternion
 
+# recall: robots generally take base movement commands on a topic 
+#  called "cmd_vel" using a message type "geometry_msgs/Twist"
+from geometry_msgs.msg import Twist
+class square:
+    """ This example is in the form of a class. """
 
+    def __init__(self):
+        """ This is the constructor of our class. """
+        # register this function to be called on shutdown
+        rospy.on_shutdown(self.cleanup)
 
-x = 0.0
-y = 0.0
-theta = 0.0
+        # publish to cmd_vel
+        self.pub = rospy.Publisher('cmd_vel', Twist)
+        # give our node/publisher a bit of time to connect
+        rospy.sleep(1)
 
-def newOdom_callback (msg):
-    global x
-    global y
-    global theta
+        # use a rate to make sure the bot keeps moving
+        r = rospy.Rate(100)
 
-    x= msg.pose.pose.position.x
-    y= msg.pose.pose.position.y
+        # go forever!
+        while not rospy.is_shutdown():
+            # create a Twist message, fill it in to drive forward
+            twist = Twist()
+            twist.linear.x = 0.30
+            for i in range(1850):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            # create a twist message, fill it in to turn
+            twist = Twist()
+            twist.angular.z = 1.57/2    # 45 deg/s * 2sec = 90 degrees
+            for i in range(255):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            # create a Twist message, fill it in to drive forward
+            twist = Twist()
+            twist.linear.x = 0.30
+            for i in range(1020):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            # create a twist message, fill it in to turn
+            twist = Twist()
+            twist.angular.z = 1.57/2    # 45 deg/s * 2sec = 90 degrees
+            for i in range(255):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            # create a Twist message, fill it in to drive forward
+            twist = Twist()
+            twist.linear.x = 0.30
+            for i in range(547):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            twist = Twist()
+            # create a twist message, fill it in to turn
+            twist.angular.z = 1.57/2    # 45 deg/s * 2sec = 90 degrees
+            for i in range(255):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            # create a Twist message, fill it in to drive forward
+            twist = Twist()
+            twist.linear.x = 0.30
+            for i in range(352):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            twist = Twist()
+            # create a twist message, fill it in to turn
+            twist.angular.z = -1.57/2    # 45 deg/s * 2sec = 90 degrees
+            for i in range(255):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            # create a Twist message, fill it in to drive forward
+            twist = Twist()
+            twist.linear.x = 0.30
+            for i in range(1345):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            twist = Twist()
+            # create a twist message, fill it in to turn
+            twist.angular.z = 1.57/2    # 45 deg/s * 2sec = 90 degrees
+            for i in range(255):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            # create a Twist message, fill it in to drive forward
+            twist = Twist()
+            twist.linear.x = 0.30
+            for i in range(600):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
+            twist = Twist()
+                # create a twist message, fill it in to turn
+            twist.angular.z = 1.57/2    # 45 deg/s * 2sec = 90 degrees
+            for i in range(255):         # 10*5hz = 2sec
+                self.pub.publish(twist)
+                r.sleep()
 
-    rot_q= msg.pose.pose.orientation
-    (roll, pitch, theta)= euler_from_quaternion( [rot_q.x, rot_q.y, rot_q.z, rot_q.w])
+    def cleanup(self):
+        # stop the robot!
+        twist = Twist()
+        self.pub.publish(twist)
 
-
-rospy.init_node ("speed_controller")
-
-sub= rospy.Subscriber ("/mobile_base_controller/odom", Odometry, newOdom_callback) 
-pub = rospy.Publisher("/mobile_base_controller/cmd_vel", Twist, queue_size=10)
-speed= Twist()
-
-rate = rospy.Rate(100)
-
-goal = Point()
-#TARGET 
-goal.x= 1.0
-goal.y= 0.0
-
-while not rospy.is_shutdown():
-
-    delta_x = abs(goal.x - x)
-    delta_y = abs(goal.y - y)
-    angle_to_goal = atan2 (delta_y, delta_x)
-    displacement= degrees(abs(angle_to_goal-theta))
-
-    print("x_goal:")
-    print (goal.x)
-    print ("y_goal:")
-    print (goal.y)
-
-    if displacement > 2.0:
-        speed.linear.x = 0.0
-        speed.angular.z = 0.1 #clockwise
-        rospy.logdebug_once("Rotating...")
-        print (displacement)
-        print("x offset:")   
-        print(delta_x) 
-        print("y offset:") 
-        print(delta_y) 
-  
-
-    else:
-        if delta_x < 0.1 and delta_y < 0.1:
-
-
-            print ("goal reached!")
-            print("x offset:")   
-            print(delta_x) 
-            print("y offset:") 
-            print(delta_y) 
-            
-
-            break
-
-
-
-        else:
-            speed.linear.x = 0.3 #go forward
-            speed.angular.z = 0.0
-
-
-            
-            print ("go forward")
-            print("x offset:")   
-            print(delta_x) 
-            print("y offset:") 
-            print(delta_y) 
-
-            
-
-
-    pub.publish(speed)
-    rate.sleep()
+if __name__=="__main__":
+    rospy.init_node('square')
+    square()

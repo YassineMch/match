@@ -25,7 +25,7 @@ class path:
             # create a Twist message, robot moves forward direction Hiwi Raum
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(794):         
+            for i in range(794):         #time adjustment: current vel/new vel*current range
                 self.pub.publish(twist)
                 r.sleep()
             # create a twist message, robot turns 

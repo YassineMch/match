@@ -16,85 +16,84 @@ class path:
         # give the node/publisher time to connect
         rospy.sleep(1)
         r = rospy.Rate(100)
-        vel_lin = 0.30
-        vel_ang = math.pi/2
-
-
+        vel_lin = 0.7
+        vel_ang = 1.57/2
+        t_rot = 250
+        t_rot_neg = 265
         while not rospy.is_shutdown():
 
             # create a Twist message, robot moves forward direction Hiwi Raum
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(1850):         
+            for i in range(794):         
                 self.pub.publish(twist)
                 r.sleep()
             # create a twist message, robot turns 
             twist = Twist()
             twist.angular.z = vel_ang     # 45 deg/s * 2sec = 90 degrees (had to test it cause it didnt work with 200)
-            for i in range(255):         
+            for i in range(t_rot):         
                 self.pub.publish(twist)
                 r.sleep()
             # create a Twist message, robot moves forward direction Match Tower
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(1020):         
+            for i in range(437):         
                 self.pub.publish(twist)
                 r.sleep()
             # create a twist message, robot turns 
             twist = Twist()
             twist.angular.z = vel_ang     
-            for i in range(255):         
+            for i in range(t_rot):         
                 self.pub.publish(twist)
                 r.sleep()
             # create a Twist message, robot moves forward direction desck
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(547):         
+            for i in range(236):         
                 self.pub.publish(twist)
                 r.sleep()
             twist = Twist()
             # create a twist message, robot turns 
             twist.angular.z = vel_ang     
-            for i in range(255):         
+            for i in range(t_rot):         
                 self.pub.publish(twist)
                 r.sleep()
             # create a Twist message, robot moves forward direction Werkstatt_1
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(352):         
+            for i in range(169):         
                 self.pub.publish(twist)
                 r.sleep()
             twist = Twist()
             # create a twist message, robot turns 
-            twist.angular.z = vel_ang    
-            for i in range(255):         
+            twist.angular.z = -vel_ang   
+            for i in range(t_rot_neg):       
                 self.pub.publish(twist)
                 r.sleep()
             # create a Twist message, robot moves forward direction Gate of the Hall
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(1345):         
+            for i in range(570):         
                 self.pub.publish(twist)
                 r.sleep()
             twist = Twist()
             # create a twist message, robot turns 
             twist.angular.z = vel_ang     
-            for i in range(255):         
+            for i in range(t_rot):         
                 self.pub.publish(twist)
                 r.sleep()
             # create a Twist message, robot moves forward direction Werkstatt_2
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(600):         
+            for i in range(291):         
                 self.pub.publish(twist)
                 r.sleep()
             twist = Twist()
                 # create a twist message, robot turns
             twist.angular.z = vel_ang     
-            for i in range(255):         
+            for i in range(t_rot):         
                 self.pub.publish(twist)
                 r.sleep()
-                break
         print('robot has achieved one round with a linear velocity v_x_lin = ', vel_lin , 'and an angular velocity v_x_ang=', vel_ang)
 
     def cleanup(self):

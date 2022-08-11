@@ -16,16 +16,16 @@ class path:
         # give the node/publisher time to connect
         rospy.sleep(1)
         r = rospy.Rate(100)
-        vel_lin = 0.3 #0.3 #0.4 #0.6 #0.7 #0.8
+        vel_lin = 0.4 #0.4 #0.6 #0.7 #0.8
         vel_ang = 1.57/2
-        t_rot = 255
+        t_rot = 250
         t_rot_neg = 265
         while not rospy.is_shutdown():
 
             # create a Twist message, robot moves forward direction Hiwi Raum
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(1853):   #1853 #1390 #927  #796 #697   #time adjustment: current vel/new vel*current range
+            for i in range(1390):   # 1390 #927  #796 #697   #time adjustment: current vel/new vel*current range
                 self.pub.publish(twist)
                 r.sleep()
             # create a twist message, robot turns 
@@ -37,7 +37,7 @@ class path:
             # create a Twist message, robot moves forward direction Match Tower
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(1018): #1018 #764  #509    #436 #382
+            for i in range(764):  #764  #509    #436 #382
                 self.pub.publish(twist)
                 r.sleep()
             # create a twist message, robot turns 
@@ -49,7 +49,7 @@ class path:
             # create a Twist message, robot moves forward direction desck
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(552): #552 #414  #276    #236 #207
+            for i in range(414):  #414  #276    #236 #207
                 self.pub.publish(twist)
                 r.sleep()
             twist = Twist()
@@ -61,7 +61,7 @@ class path:
             # create a Twist message, robot moves forward direction Werkstatt_1
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(395): #395 #296  #197  #168  #147
+            for i in range(296):  #296  #197     #168  #147
                 self.pub.publish(twist)
                 r.sleep()
             twist = Twist()
@@ -73,7 +73,7 @@ class path:
             # create a Twist message, robot moves forward direction Gate of the Hall
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(1329): #1329  #997  #665    #570  #499
+            for i in range(997):   #997  #665    #570  #499
                 self.pub.publish(twist)
                 r.sleep()
             twist = Twist()
@@ -85,7 +85,7 @@ class path:
             # create a Twist message, robot moves forward direction Werkstatt_2
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(660): #660  #495   #330  #283 #248
+            for i in range(495):   #495   #330  #283 #248
                 self.pub.publish(twist)
                 r.sleep()
             twist = Twist()

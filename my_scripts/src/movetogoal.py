@@ -61,7 +61,7 @@ class path:
             # create a Twist message, robot moves forward direction Werkstatt_1
             twist = Twist()
             twist.linear.x = vel_lin
-            for i in range(296):  #296  #197     #168  #147
+            for i in range(310):  #296  #197     #168  #147
                 self.pub.publish(twist)
                 r.sleep()
             twist = Twist()

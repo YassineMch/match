@@ -39,7 +39,9 @@
 - use plotjuggler on host pc to visualize topic data
 **Recording of topics**
 - rosbag record --duration=30 /hedge1/hedge_pos_ang
-- rosbag record --duration=3m /amcl_pose /position_marvelmind_with_covariance /odom /cmd_vel /hedge1/hedge_imu_raw /hedge2/hedge_imu_raw 
+- rosbag record --duration=1m /amcl_pose /position_marvelmind_with_covariance /odom /cmd_vel /hedge1/hedge_imu_raw /hedge2/hedge_imu_raw /hedge1/hedge_pos_ang /hedge2/hedge_pos_ang
+
+
 
 **FDisplay frequency of Publishing**
 - rostopic hz /topicname

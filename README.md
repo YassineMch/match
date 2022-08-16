@@ -67,3 +67,7 @@
   - add /cliked_point PoseWithCovariance
   - run `$ rosrun my_scripts remap_pose_mean_covariance.py `
   - change the Initial Position by running `$ rosrun my_scripts setup_initial_pose.py `
+
+### can connection failed 
+-candump can0
+- `$ rosrun scout_bringup bringup_can2usb.bash `

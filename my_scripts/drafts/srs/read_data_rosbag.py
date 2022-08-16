@@ -15,11 +15,11 @@ z = []
 #z_punkt = []
 # yaw = []
 
-bag = rosbag.Bag ('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_nonomni_path_0.6_ms/2022-08-11-17-32-04.bag')
+bag = rosbag.Bag ('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_nonomni_path_0.4_ms_fused/2022-08-15-17-01-43.bag')
 
 # open the .bag file
 
-for topic, msg, t in bag.read_messages(topics=['/odom']):
+for topic, msg, t in bag.read_messages(topics=['/odometry/filtered']):
 
     x.append(msg.pose.pose.position.x)
     y.append(msg.pose.pose.position.y)
@@ -43,9 +43,9 @@ z = np.array ([z])
 #change the name of the file if required
 
 
-np.savetxt('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_nonomni_path_0.6_ms/2022-08-11-17-32-04_x_odom.csv',x, delimiter=",", header="position in x direction for 0.6 m/s")
-np.savetxt('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_nonomni_path_0.6_ms/2022-08-11-17-32-04_y_odom.csv',y, delimiter=",", header="position in y direction for 0.6 m/s")
-np.savetxt('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_nonomni_path_0.6_ms/2022-08-11-17-32-04_z_odom.csv',z, delimiter=",", header="position in z direction for 0.6 m/s")
+np.savetxt('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_nonomni_path_0.4_ms_fused/2022-08-15-17-01-43_x_odom.csv',x, delimiter=",", header="position in x direction for 0.4 m/s")
+np.savetxt('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_nonomni_path_0.4_ms_fused/2022-08-15-17-01-43_y_odom.csv',y, delimiter=",", header="position in y direction for 0.4 m/s")
+np.savetxt('/home/ros/catkin_ws_yassin/src/match/my_scripts/aufnahmen/aufnahme_nonomni_path_0.4_ms_fused/2022-08-11-17-32-04_z_odom.csv',z, delimiter=",", header="position in z direction for 0.4 m/s")
 
 # in case to print an array
 

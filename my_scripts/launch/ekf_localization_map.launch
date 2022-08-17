@@ -1,5 +1,7 @@
 <launch>
   <!-- AMCL and Beacon Extended Kalman Filter-->
+  
+  <node pkg="rosbag" type="play" name="rosbagplay" args="$(find my_scripts)/aufnahmen/aufnahme_nonomni_path_0.4_ms/2022-08-16-13-42-55.bag --clock -d 5" required="true"/>
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization_map" clear_params="true">
     <rosparam command="load" file="$(find my_scripts)/sensor_fusion/parameter/robot_localization_map_odom.yaml" />
   </node>

@@ -37,7 +37,7 @@ def callback_marvelmind_pos_2(msg_pos_2):
     seq_init += 1
     
     pose_out.header.stamp = rospy.Time.now()
-    pose_out.header.frame_id = 'map'
+    pose_out.header.frame_id = 'beacon_map'
 
 # mean position from Beacons pose data
     pose_out.pose.pose.position.x = (x_1 + x_2)/2

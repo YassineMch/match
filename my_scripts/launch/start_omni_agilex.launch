@@ -1,9 +1,9 @@
 <launch> 
     <include file="$(find scout_bringup)/launch/scout_mini_omni_minimal.launch" />
 
+    <node pkg="tf" type="static_transform_publisher" name="beacon_map_broadcaster" args="1 2 0 0 0 0 /map /beacon_map 100"/>
     <node pkg="tf" type="static_transform_publisher" name="rp_lidar_link" args="-0.1 0 0.1 0 0 0 /base_link /laser 100"/>
-
-    <node name="remap_pose_mean_covariance" pkg="my_scripts" type="talker" output="screen"/>
+    <include file="$(find my_scripts)/launch/launch_map_match.launch" />
 
     <include file="$(find rplidar_ros)/launch/rplidar_a3.launch" />
 

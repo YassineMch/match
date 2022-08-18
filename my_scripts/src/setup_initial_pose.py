@@ -11,7 +11,9 @@ initpose_msg = PoseWithCovarianceStamped()
 def callback_position(msg_in):
     #transfer Data to PoseWithCovariancestamped
 
-    initpose_msg.header = msg_in.header
+    initpose_msg.header.seq = msg_in.header.seq
+    initpose_msg.header.stamp = msg_in.header.stamp
+    initpose_msg.header.frame_id = 'map'
     initpose_msg.pose = msg_in.pose
 
     

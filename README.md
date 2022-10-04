@@ -73,3 +73,8 @@
 ### can connection failed 
 -candump can0
 - `$ rosrun scout_bringup bringup_can2usb.bash `
+
+### start the sensor fusion with kalman extended filter
+* start Rviz
+* start kalman filter
+* start agilex

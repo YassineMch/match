@@ -23,6 +23,7 @@ odom0_differential: true
 odom0_queue_size: 4
 
 
+
 pose0: /position_marvelmind_with_covariance   # Hedgehog!
 pose0_config: [true,  true,  false,
                false, false, false,
@@ -32,7 +33,14 @@ pose0_config: [true,  true,  false,
 
 pose0_rejection_threshold: 1  
 
+pose1: /amcl_pose   # Hedgehog!
+pose0_config: [true,  true,  false,
+               false, false, true,
+               false, false, false,
+               false, false, false,
+               false, false, false]
 
+pose0_rejection_threshold: 2  
 
 process_noise_covariance: [0.05, 0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
                            0,    0.05, 0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,

@@ -78,3 +78,5 @@
 * start Rviz
 * start kalman filter
 * start agilex
+
+roslaunch realsense2_camera rs_camera.launch enable_gyro:=true enable_accel:=true 

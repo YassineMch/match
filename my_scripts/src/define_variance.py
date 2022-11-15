@@ -4,26 +4,37 @@
 # daten werden aus dem Stationary Zustand ausgewertet und der Noise des System damit ermittelt
 
 import rospy
+import math
 import time
 import statistics
 from geometry_msgs.msg import PoseWithCovarianceStamped
-#import numpy as np
+from tf import transformations
+import numpy as np
 
 x = []
 y = []
 z = []
+roll = []
+pitch =[]
 yaw = []
-
+w = []
+quat= []
+euler= []
+yaw_deg =[]
 
 def callback_marvelmind_pos(msg):   
-    global x, y, z, yaw
-    
-    
+    global x, y, z, roll, pitch, yaw, w, quat, euler
+
+    #poition
     x.append(msg.pose.pose.position.x)
     y.append(msg.pose.pose.position.y)
     z.append(msg.pose.pose.position.z)
-    yaw.append(msg.pose.pose.orientation.w)
     
+    #orientation quaternion
+    roll.append(msg.pose.pose.orientation.x)
+    pitch.append(msg.pose.pose.orientation.y)
+    yaw.append(msg.pose.pose.orientation.z)
+    w.append(msg.pose.pose.orientation.w)
     
     
 if __name__ =='__main__':
@@ -37,5 +48,22 @@ if __name__ =='__main__':
     variance_z = statistics.variance(z)
     variance_yaw = statistics.variance (yaw)
     
-    #print ('x =', x)
+    mean_x = np.mean(x)
+    mean_y = np.mean(y)
+    mean_z = np.mean(z)
+    
+    mean_roll = np.mean(roll)
+    mean_pitch = np.mean(pitch)
+    mean_yaw = np.mean(yaw)
+    mean_w = np.mean(w)
+    
+    quater = [mean_roll, mean_pitch, mean_yaw, mean_w]
+    euler = transformations.euler_from_quaternion (quater)
+    
+    degx = ((euler[0]/(math.pi))*180)
+    degy = ((euler[1]/(math.pi))*180)
+    degz = ((euler[2]/(math.pi))*180)
+    
+    print (degx, degy, degz)
+    print ('x =', mean_x,'y =', mean_y, 'z =', mean_z, 'yaw =', mean_yaw )
     print('variance x =', variance_x, 'variance y =', variance_y,  'variance z =', variance_z, 'variance yaw =', variance_yaw)

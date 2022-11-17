@@ -60,10 +60,14 @@ if __name__ =='__main__':
     quater = [mean_roll, mean_pitch, mean_yaw, mean_w]
     euler = transformations.euler_from_quaternion (quater)
     
+    radx = euler[0]
+    rady = euler[1]
+    radz = euler[2]
+    
     degx = ((euler[0]/(math.pi))*180)
     degy = ((euler[1]/(math.pi))*180)
     degz = ((euler[2]/(math.pi))*180)
     
     print (degx, degy, degz)
-    print ('x =', mean_x,'y =', mean_y, 'z =', mean_z, 'yaw =', mean_yaw )
+    print ('x =', mean_x,'y =', mean_y, 'z =', mean_z, 'yaw =', radz )
     print('variance x =', variance_x, 'variance y =', variance_y,  'variance z =', variance_z, 'variance yaw =', variance_yaw)

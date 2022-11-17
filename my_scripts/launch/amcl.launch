@@ -6,9 +6,9 @@
   <arg name="scan_topic"      default="scan"/>
   <arg name="map_topic"       default="/map"/>         <!-- if use_map_topic = true  -->
   <arg name="map_service"     default="/static_map"/>  <!-- if use_map_topic = false -->
-  <arg name="initial_pose_x"  default="0.0"/>
-  <arg name="initial_pose_y"  default="0.0"/>
-  <arg name="initial_pose_a"  default="0.0"/>
+  <arg name="initial_pose_x"  default="1.881"/>
+  <arg name="initial_pose_y"  default="2.113"/>
+  <arg name="initial_pose_a"  default="-1.5"/>
   <arg unless="$(eval arg('tf_prefix') =='')" name="odom_frame_id"   default="$(arg tf_prefix)/odom"/>
   <arg if="$(eval arg('tf_prefix') =='')" name="odom_frame_id"   default="odom"/>
   <arg unless="$(eval arg('tf_prefix') =='')" name="base_frame_id"   default="$(arg tf_prefix)/base_link"/>

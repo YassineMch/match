@@ -48,8 +48,8 @@ if __name__ =='__main__':
     variance_z = statistics.variance(z)
     variance_yaw = statistics.variance (yaw)
     
-    mean_x = np.mean(x)
-    mean_y = np.mean(y)
+    mean_x = np.mean(x)+ 1.224
+    mean_y = np.mean(y)+ 0.3037
     mean_z = np.mean(z)
     
     mean_roll = np.mean(roll)

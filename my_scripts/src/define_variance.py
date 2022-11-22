@@ -7,10 +7,10 @@ import rospy
 import math
 import time
 import statistics
-from geometry_msgs.msg import PoseWithCovarianceStamped
-from tf import transformations
+from geometry_msgs.msg import PoseWithCovarianceStamped, Pose
 import numpy as np
 
+seq_init = 0 
 x = []
 y = []
 z = []
@@ -21,27 +21,28 @@ w = []
 quat= []
 euler= []
 yaw_deg =[]
+pose_out_var= PoseWithCovarianceStamped()
 
 def callback_marvelmind_pos(msg):   
     global x, y, z, roll, pitch, yaw, w, quat, euler
 
     #poition
-    x.append(msg.pose.pose.position.x)
-    y.append(msg.pose.pose.position.y)
-    z.append(msg.pose.pose.position.z)
+    x.append(msg.position.x)
+    y.append(msg.position.y)
+    z.append(msg.position.z)
     
     #orientation quaternion
-    roll.append(msg.pose.pose.orientation.x)
-    pitch.append(msg.pose.pose.orientation.y)
-    yaw.append(msg.pose.pose.orientation.z)
-    w.append(msg.pose.pose.orientation.w)
+    roll.append(msg.orientation.x)
+    pitch.append(msg.orientation.y)
+    yaw.append(msg.orientation.z)
+    w.append(msg.orientation.w)
     
     
 if __name__ =='__main__':
     rospy.init_node('define_variance')
-    sub=rospy.Subscriber("/position_marvelmind_with_covariance", PoseWithCovarianceStamped, callback_marvelmind_pos)
-    
-    time.sleep(10)
+    sub=rospy.Subscriber("/middle_point", Pose, callback_marvelmind_pos)
+    pub=rospy.Publisher("/pose_mean", PoseWithCovarianceStamped, queue_size=10)
+    time.sleep(20)
     
     variance_x = statistics.variance(x)
     variance_y = statistics.variance(y)
@@ -52,22 +53,33 @@ if __name__ =='__main__':
     mean_y = np.mean(y)+ 0.3037
     mean_z = np.mean(z)
     
+    
     mean_roll = np.mean(roll)
     mean_pitch = np.mean(pitch)
     mean_yaw = np.mean(yaw)
     mean_w = np.mean(w)
     
-    quater = [mean_roll, mean_pitch, mean_yaw, mean_w]
-    euler = transformations.euler_from_quaternion (quater)
+    pose_out_var.header.seq = seq_init
+    seq_init += 1
     
-    radx = euler[0]
-    rady = euler[1]
-    radz = euler[2]
+    pose_out_var.header.stamp = rospy.Time.now()
+    pose_out_var.header.frame_id = 'map'
     
-    degx = ((euler[0]/(math.pi))*180)
-    degy = ((euler[1]/(math.pi))*180)
-    degz = ((euler[2]/(math.pi))*180)
+    pose_out_var.pose.pose.position.x = mean_x
+    pose_out_var.pose.pose.position.y = mean_y
+    pose_out_var.pose.pose.position.z = mean_z
     
-    print (degx, degy, degz)
-    print ('x =', mean_x,'y =', mean_y, 'z =', mean_z, 'yaw =', radz )
-    print('variance x =', variance_x, 'variance y =', variance_y,  'variance z =', variance_z, 'variance yaw =', variance_yaw)
+    pose_out_var.pose.pose.orientation.x = mean_roll
+    pose_out_var.pose.pose.orientation.y = mean_pitch
+    pose_out_var.pose.pose.orientation.z = mean_yaw 
+    pose_out_var.pose.pose.orientation.w = mean_w
+    
+    # covariance matrix with variance data from stationary state of the Beacons 
+    pose_out_var.pose.covariance = [variance_x, 0, 0, 0, 0, 0,
+                                    0,variance_y, 0, 0, 0, 0,
+                                    0, 0, variance_z, 0, 0, 0,
+                                    0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, 0, 
+                                    0, 0, 0, 0, 0, variance_yaw ]
+    
+    pub.publish(pose_out_var)

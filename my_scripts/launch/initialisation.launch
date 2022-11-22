@@ -1,6 +1,6 @@
 <launch>
 
     <node name="covariance" pkg="my_scripts" type="define_variance.py" output="screen" />
-    <node name="mean_pose" pkg="my_scripts" type="remap_pose_mean_covariance.py" output="screen" />
+    <node name="mean_pose" pkg="my_scripts" type="middle.point.py" output="screen" />
     
 </launch>

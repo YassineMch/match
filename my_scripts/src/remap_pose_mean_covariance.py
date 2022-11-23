@@ -53,11 +53,7 @@ def callback_marvelmind_pos_3(msg_pos_imu):
     pose_out.pose.pose.orientation.w = msg_pos_imu.qw
 
 # covariance matrix with variance data from stationary state of the Beacons 
-    pose_out.pose.covariance = [0.04783418046042617, 0, 0, 0, 0, 0,
-                                0, 0.04189385245433789, 0, 0, 0, 0,
-                                0, 0, 0.0016022922374429218, 0, 0, 0,
-                                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                                0, 0, 0, 0, 0, 1.6018519786910204e-05]
+    pose_out.pose.covariance = rospy.get_param("/pose_cov")
 
     pub.publish(pose_out)
 

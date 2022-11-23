@@ -42,7 +42,7 @@ if __name__ =='__main__':
     rospy.init_node('define_variance')
     sub=rospy.Subscriber("/middle_point", Pose, callback_marvelmind_pos)
     pub=rospy.Publisher("/pose_mean", PoseWithCovarianceStamped, queue_size=10)
-    time.sleep(20)
+    time.sleep(10)
     
     variance_x = statistics.variance(x)
     variance_y = statistics.variance(y)
@@ -81,5 +81,6 @@ if __name__ =='__main__':
                                     0, 0, 0, 0, 0, 0, 
                                     0, 0, 0, 0, 0, 0, 
                                     0, 0, 0, 0, 0, variance_yaw ]
+    rospy.set_param("/pose_cov",pose_out_var.pose.covariance)
     
     pub.publish(pose_out_var)

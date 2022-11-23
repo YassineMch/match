@@ -84,5 +84,7 @@ roslaunch realsense2_camera rs_camera.launch enable_gyro:=true enable_accel:=tru
 
  * start agilex 
  * `$ roslaunch my_scripts multi_hedge.launch ` 
+ * launch initialisation
+ * launch
 
  * auf rosmaster start `$ roslaunch my_scripts initialisation.launch  `

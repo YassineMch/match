@@ -75,22 +75,8 @@ if __name__ =='__main__':
     pub=rospy.Publisher("/pose_mean", PoseWithCovarianceStamped, queue_size=10)
     time.sleep(5)
     
-    variance_x = statistics.variance(x)
-    variance_y = statistics.variance(y)
-    variance_z = statistics.variance(z)
-    variance_yaw = statistics.variance (yaw)
-    
-    pose_out_var.pose.covariance = [variance_x, 0, 0, 0, 0, 0,
-                                    0,variance_y, 0, 0, 0, 0,
-                                    0, 0, variance_z, 0, 0, 0,
-                                    0, 0, 0, 0, 0, 0, 
-                                    0, 0, 0, 0, 0, 0, 
-                                    0, 0, 0, 0, 0, variance_yaw ]
-    
-
-    rospy.set_param("/pose_cov",pose_out_var.pose.covariance)
     rospy.set_param("/amcl/initial_pose_x",float(pose_out_var.pose.pose.position.x))
-    rospy.set_param("/initial_pose_y",float(pose_out_var.pose.pose.position.y))
-    rospy.set_param("/initial_pose_a",radz)
+    rospy.set_param("/amcl/initial_pose_y",float(pose_out_var.pose.pose.position.y))
+    #rospy.set_param("/initial_pose_a",euler[2])
     
     pub.publish(pose_out_var)

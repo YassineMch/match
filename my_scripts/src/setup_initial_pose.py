@@ -28,7 +28,7 @@ if __name__=='__main__':
 
     while not rospy.is_shutdown():
             connections = pub.get_num_connections()
-            if connections > 2 and initpose_msg.pose.pose.position.x != 0:
+            if connections > 1 and initpose_msg.pose.pose.position.x != 0:
                 pub.publish(initpose_msg)
                 rospy.loginfo('Initial Pose has been set')
                 break

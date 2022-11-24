@@ -24,7 +24,7 @@ yaw_deg =[]
 pose_out_var= PoseWithCovarianceStamped()
 
 def callback_marvelmind_pos(msg):   
-    global x, y, z, roll, pitch, yaw, w, quat, euler
+    global x, y, z, roll, pitch, yaw, w, quat, euler, variance_x, variance_y, variance_z, variance_yaw, mean_x, mean_y, mean_z, mean_roll, mean_yaw, mean_pitch, mean_w, seq_init
 
     #poition
     x.append(msg.position.x)
@@ -37,22 +37,9 @@ def callback_marvelmind_pos(msg):
     yaw.append(msg.orientation.z)
     w.append(msg.orientation.w)
     
-    
-if __name__ =='__main__':
-    rospy.init_node('define_variance')
-    sub=rospy.Subscriber("/middle_point", Pose, callback_marvelmind_pos)
-    pub=rospy.Publisher("/pose_mean", PoseWithCovarianceStamped, queue_size=10)
-    time.sleep(10)
-    
-    variance_x = statistics.variance(x)
-    variance_y = statistics.variance(y)
-    variance_z = statistics.variance(z)
-    variance_yaw = statistics.variance (yaw)
-    
     mean_x = np.mean(x)+ 1.224
     mean_y = np.mean(y)+ 0.3037
     mean_z = np.mean(z)
-    
     
     mean_roll = np.mean(roll)
     mean_pitch = np.mean(pitch)
@@ -75,12 +62,25 @@ if __name__ =='__main__':
     pose_out_var.pose.pose.orientation.w = mean_w
     
     # covariance matrix with variance data from stationary state of the Beacons 
+
+    
+if __name__ =='__main__':
+    rospy.init_node('define_variance')
+    sub=rospy.Subscriber("/middle_point", Pose, callback_marvelmind_pos)
+    pub=rospy.Publisher("/pose_mean", PoseWithCovarianceStamped, queue_size=10)
+    time.sleep(10)
+    
+    variance_x = statistics.variance(x)
+    variance_y = statistics.variance(y)
+    variance_z = statistics.variance(z)
+    variance_yaw = statistics.variance (yaw)
+    
     pose_out_var.pose.covariance = [variance_x, 0, 0, 0, 0, 0,
                                     0,variance_y, 0, 0, 0, 0,
                                     0, 0, variance_z, 0, 0, 0,
                                     0, 0, 0, 0, 0, 0, 
                                     0, 0, 0, 0, 0, 0, 
                                     0, 0, 0, 0, 0, variance_yaw ]
-    rospy.set_param("/pose_cov",pose_out_var.pose.covariance)
     
+    rospy.set_param("/pose_cov",pose_out_var.pose.covariance)
     pub.publish(pose_out_var)

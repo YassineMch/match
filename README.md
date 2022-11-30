@@ -28,25 +28,25 @@
 
   ## Necessary Packages for the Work
   * Package for marvelmind data hadeling 
-  - package name = ros_marvelmind_package
-	- url = https://bitbucket.org/marvelmind_robotics/ros_marvelmind_package.git
+    - package name = ros_marvelmind_package
+    - url = https://bitbucket.org/marvelmind_robotics/ros_marvelmind_package.git
 
   * Package for laser scanner data handeling
-  - package name = rplidar_ros
-	- url = https://github.com/robopeak/rplidar_ros.git
+    - package name = rplidar_ros
+    - url = https://github.com/robopeak/rplidar_ros.git
 
   * Packages and dependencies for Scout mini Agilex 
-  - package name = scout_ros
-	- url = https://github.com/westonrobot/scout_ros.git
-  - package name = ugv_sdk
-	- url = https://github.com/westonrobot/ugv_sdk.git
+    - package name = scout_ros
+    - url = https://github.com/westonrobot/scout_ros.git
+    - package name = ugv_sdk
+    - url = https://github.com/westonrobot/ugv_sdk.git
 
-  - Build up dependecies: `$ sudo apt-get update` and
-    `$ sudo apt-get install build-essential git cmake libasio-dev`
+    - Build up dependecies: `$ sudo apt-get update` and
+      `$ sudo apt-get install build-essential git cmake libasio-dev`
 
   * Package for Extanded Kalman Filter 
-  - package name = robot_localization
-	- url = https://github.com/cra-ros-pkg/robot_localization.git
+    - package name = robot_localization
+    - url = https://github.com/cra-ros-pkg/robot_localization.git
 
   ## Marvelmind using ROS
 
@@ -88,7 +88,7 @@
   ### Data extraction from Marvelmind and message type adapting with covariance
   - Position (done)
   - Angle (done)
-  - IMU angular ()
+  - IMU angular (done)
   ### Initializing of EKF with every new start of the system
   - initializing the initial pose with /initialpose:
   - position (done)
@@ -99,6 +99,7 @@
   - Ground truth with laser tracker ()
   - Data recording in bag file with /odom , /position_marvelmind_with_covariance
     /amcl_pose and IMU ()
+  - define variance based on variance of different topics used
   - parameter study of the effect of filter parameters: estimate and observation
       uncertainty ()
   ### Data processing

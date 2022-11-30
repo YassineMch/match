@@ -5,9 +5,12 @@
 import rospy
 from marvelmind_nav.msg import hedge_pos_ang, hedge_imu_fusion
 from geometry_msgs.msg import PoseWithCovarianceStamped
+from marvelmind_nav.msg import  hedge_imu_raw
+from sensor_msgs.msg import Imu
 
 seq_init = 0 
 pose_out = PoseWithCovarianceStamped()
+imu_out = Imu()
 
 x_1 = 0
 y_1 = 0
@@ -16,7 +19,29 @@ x_2 = 0
 y_0 = 0
 z_2 = 0
 
+#subscriber imu
+def callback_marvelmind_imu(msg_pos_imu):   
+    global  seq_init
+    
+# define header imu
+    imu_out.header.seq = seq_init 
+    seq_init += 1
+    imu_out.header.stamp = rospy.Time.now()
+    imu_out.header.frame_id = 'base_link'
+    
+#imu_angular velocity
+    imu_out.angular_velocity.x = msg_pos_imu.gyro_x / 1000
+    imu_out.angular_velocity.y = msg_pos_imu.gyro_y / 1000
+    imu_out.angular_velocity.z = msg_pos_imu.gyro_z / 1000
+    imu_out.angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
+#imu_angular velocity
+    imu_out.linear_acceleration.x = msg_pos_imu.acc_x / 1000
+    imu_out.linear_acceleration.y = msg_pos_imu.acc_y / 1000
+    imu_out.linear_acceleration.z = msg_pos_imu.acc_z / 1000
+    imu_out.linear_acceleration_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0]  
+
+#subscriber pose
 def callback_marvelmind_pos_1(msg_pos_1):   
     global  x_1, y_1, z_1, angle
 
@@ -24,7 +49,6 @@ def callback_marvelmind_pos_1(msg_pos_1):
     y_1 = msg_pos_1.y_m
     z_1 = msg_pos_1.z_m
     
-
 def callback_marvelmind_pos_2(msg_pos_2):   
     global seq_init, x_2, y_2, z_2
     
@@ -32,10 +56,9 @@ def callback_marvelmind_pos_2(msg_pos_2):
     y_2 = msg_pos_2.y_m
     z_2 = msg_pos_2.z_m
     
-# define header 
+# define header pose
     pose_out.header.seq = seq_init
     seq_init += 1
-    
     pose_out.header.stamp = rospy.Time.now()
     pose_out.header.frame_id = 'beacon_map'
 
@@ -55,15 +78,21 @@ def callback_marvelmind_pos_3(msg_pos_imu):
 # covariance matrix with variance data from stationary state of the Beacons 
     pose_out.pose.covariance = rospy.get_param("/pose_cov")
 
-    pub.publish(pose_out)
+#publish topics
 
+    pub_1.publish(pose_out)
+    pub_2.publish(imu_out)
+    
 if __name__ =='__main__':
     rospy.init_node('remap_pose_mean_covariance')
 
     rate = rospy.Rate(10)
+
     sub_1 = rospy.Subscriber("/hedge1/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_1)
     sub_2 = rospy.Subscriber("/hedge2/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_2)
     sub_3 = rospy.Subscriber("/hedge1/hedge_imu_fusion", hedge_imu_fusion , callback_marvelmind_pos_3)
-    pub=rospy.Publisher("/position_marvelmind_with_covariance", PoseWithCovarianceStamped, queue_size=10)
+    sub_4 = rospy.Subscriber("/hedge2/hedge_imu_raw", hedge_imu_raw , callback_marvelmind_imu)
+    pub_1 = rospy.Publisher("/position_marvelmind_with_covariance", PoseWithCovarianceStamped, queue_size=10)
+    pub_2 = rospy.Publisher("/imu_marvelmind_with_covariance", Imu, queue_size=10)
 
     rospy.spin()

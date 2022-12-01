@@ -7,7 +7,7 @@ from marvelmind_nav.msg import hedge_pos_ang, hedge_imu_fusion
 from geometry_msgs.msg import PoseWithCovarianceStamped
 from marvelmind_nav.msg import  hedge_imu_raw
 from sensor_msgs.msg import Imu
-
+from math import pi
 seq_init = 0 
 pose_out = PoseWithCovarianceStamped()
 imu_out = Imu()
@@ -21,7 +21,7 @@ z_2 = 0
 
 #subscriber imu
 def callback_marvelmind_imu(msg_pos_imu):   
-    global  seq_init
+    global  seq_init, yaw_accel_var
     
 # define header imu
     imu_out.header.seq = seq_init 
@@ -29,17 +29,10 @@ def callback_marvelmind_imu(msg_pos_imu):
     imu_out.header.stamp = rospy.Time.now()
     imu_out.header.frame_id = 'base_link'
     
-#imu_angular velocity
-    imu_out.angular_velocity.x = msg_pos_imu.gyro_x / 1000
-    imu_out.angular_velocity.y = msg_pos_imu.gyro_y / 1000
-    imu_out.angular_velocity.z = msg_pos_imu.gyro_z / 1000
-    imu_out.angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-#imu_angular velocity
-    imu_out.linear_acceleration.x = msg_pos_imu.acc_x / 1000
-    imu_out.linear_acceleration.y = msg_pos_imu.acc_y / 1000
-    imu_out.linear_acceleration.z = msg_pos_imu.acc_z / 1000
-    imu_out.linear_acceleration_covariance = [0, 0, 0, 0, 0, 0, 0, 0, 0]  
+#imu_angular velocity # Resolution of LSB for gyro data is 0.0175 dps, so value 1000 means 17.5 degrees per second.
+    imu_out.angular_velocity.z = msg_pos_imu.gyro_z / (1000*17.5)/180*pi 
+    yaw_accel_var = rospy.get_param("/yaw_accel_var")
+    imu_out.angular_velocity_covariance = [0, 0, 0, 0, 0, 0, 0, 0, yaw_accel_var]
 
 #subscriber pose
 def callback_marvelmind_pos_1(msg_pos_1):   

@@ -8,6 +8,7 @@ import math
 import time
 import statistics
 from geometry_msgs.msg import PoseWithCovarianceStamped, Pose
+from marvelmind_nav.msg import  hedge_imu_raw
 from tf import transformations
 import numpy as np
 
@@ -22,25 +23,27 @@ w = []
 quat= []
 euler= []
 yaw_deg =[]
+variance_yaw=[]
+yaw_accel =[]
 pose_out_var= PoseWithCovarianceStamped()
 
 def callback_marvelmind_pos(msg):   
-    global x, y, z, roll, pitch, yaw, w, quat, euler, variance_x, variance_y, variance_z, variance_yaw, mean_x, mean_y, mean_z, mean_roll, mean_yaw, mean_pitch, mean_w, seq_init,radz
+    global x, y, z, roll, pitch, yaw, w, quat, euler, variance_x, variance_y, variance_z, variance_yaw, mean_x, mean_y, mean_z, mean_roll, mean_yaw, mean_pitch, mean_w, seq_init, initial_yaw
 
-    #poition
+    # mean poition
     x.append(msg.position.x)
     y.append(msg.position.y)
     z.append(msg.position.z)
     
-    #orientation quaternion
+    mean_x = np.mean(x)+ 1.224 # for translation into mpa fram
+    mean_y = np.mean(y)+ 0.3037 # for translation into mpa fram
+    mean_z = np.mean(z)
+    
+    # mean orientation from quaternion to rad
     roll.append(msg.orientation.x)
     pitch.append(msg.orientation.y)
     yaw.append(msg.orientation.z)
     w.append(msg.orientation.w)
-    
-    mean_x = np.mean(x)+ 1.224
-    mean_y = np.mean(y)+ 0.3037
-    mean_z = np.mean(z)
     
     mean_roll = np.mean(roll)
     mean_pitch = np.mean(pitch)
@@ -49,8 +52,9 @@ def callback_marvelmind_pos(msg):
     
     quat = [mean_roll, mean_pitch, mean_yaw,mean_w]
     euler = transformations.euler_from_quaternion (quat)
-    radz = euler[2]
+    initial_yaw = euler[2]
     
+    # Header and publisher parameters
     pose_out_var.header.seq = seq_init
     seq_init += 1
     
@@ -66,20 +70,29 @@ def callback_marvelmind_pos(msg):
     pose_out_var.pose.pose.orientation.z = mean_yaw 
     pose_out_var.pose.pose.orientation.w = mean_w
     
+def callback_marvelmind_imu(msg):   
+    global yaw_accel, mean_yaw_accel
+    # angular accel
+    yaw_accel.append(msg.gyro_z / 1000)
     # covariance matrix with variance data from stationary state of the Beacons 
-
+    mean_yaw_accel = np.mean (yaw_accel)
     
 if __name__ =='__main__':
     rospy.init_node('define_variance')
     sub=rospy.Subscriber("/middle_point", Pose, callback_marvelmind_pos)
+    sub_1=rospy.Subscriber("/hedge2/hedge_imu_raw", hedge_imu_raw, callback_marvelmind_imu)
     pub=rospy.Publisher("/pose_mean", PoseWithCovarianceStamped, queue_size=10)
+    
     time.sleep(5)
+    
+    # covariance matrix with variance data from stationary state of the Beacons 
     
     variance_x = statistics.variance(x)
     variance_y = statistics.variance(y)
     variance_z = statistics.variance(z)
-    variance_yaw = statistics.variance (yaw)
-    
+    variance_yaw = statistics.variance(yaw)
+    variance_yaw= statistics.variance(yaw_accel)
+
     pose_out_var.pose.covariance = [variance_x, 0, 0, 0, 0, 0,
                                     0,variance_y, 0, 0, 0, 0,
                                     0, 0, variance_z, 0, 0, 0,
@@ -87,10 +100,10 @@ if __name__ =='__main__':
                                     0, 0, 0, 0, 0, 0, 
                                     0, 0, 0, 0, 0, variance_yaw ]
     
-
     rospy.set_param("/pose_cov",pose_out_var.pose.covariance)
     rospy.set_param("/amcl/initial_pose_x",float(pose_out_var.pose.pose.position.x))
-    rospy.set_param("/initial_pose_y",float(pose_out_var.pose.pose.position.y))
-    rospy.set_param("/initial_pose_a",radz)
+    rospy.set_param("/amcl/initial_pose_y",float(pose_out_var.pose.pose.position.y))
+    rospy.set_param("/amcl/initial_pose_a",initial_yaw)
+    rospy.set_param("/yaw_accel_var",variance_yaw)
     
     pub.publish(pose_out_var)

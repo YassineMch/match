@@ -13,37 +13,42 @@ dynamic_process_noise_covariance: false
 
 
 odom0: /odom
-odom0_config: [true, true, false,
-               false, false, false,
-               true, true, false,
-               false, false, true,
-               false, false, false]
+odom0_config: [false, false, false,
+              false, false, false,
+              true, true, false,
+              false, false, true,
+              false, false, false]
 
 odom0_differential: true
 odom0_queue_size: 4
 
-
-
 pose0: /position_marvelmind_with_covariance   # Hedgehog!
 pose0_config: [true,  true,  false,
-               false, false, false,
-               false, false, false,
-               false, false, false,
-               false, false, false]
+              false, false, true,
+              false, false, false,
+              false, false, false,
+              false, false, false]
 
 pose0_rejection_threshold: 1  
 
-pose1: /amcl_pose   # Hedgehog!
-pose0_config: [true,  true,  false,
-               false, false, true,
-               false, false, false,
-               false, false, false,
-               false, false, false]
+pose1: /amcl_pose  
+pose0_config: [true, true,  false,
+              false, false, true,
+              false, false, false,
+              false, false, false,
+              false, false, false]
 
 pose0_rejection_threshold: 2  
 
-process_noise_covariance: [0.05, 0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
-                           0,    0.05, 0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
+imu0: /imu_marvelmind_with_covariance # imu from hedge2
+imu0_config: [false,  false, false,
+              false, false, false,
+              false, false, false,
+              false, false, true,
+              false, false, false]
+
+process_noise_covariance: [0.06, 0,    0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
+                           0,    0.06, 0,    0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
                            0,    0,    0.06, 0,    0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
                            0,    0,    0,    0.03, 0,    0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
                            0,    0,    0,    0,    0.03, 0,    0,     0,     0,    0,    0,    0,    0,    0,    0,
@@ -62,7 +67,7 @@ process_noise_covariance: [0.05, 0,    0,    0,    0,    0,    0,     0,     0, 
 initial_estimate_covariance: [0.04783418046042617, 0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
                               0,    0.04189385245433789, 0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
                               0,    0,    0.0016022922374429218, 0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
-                              0,    0,    0,    1e-9, 0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
+                              0,    0,    0,   1e-9, 0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
                               0,    0,    0,    0,    1e-9, 0,    0,    0,    0,    0,     0,     0,     0,    0,    0,
                               0,    0,    0,    0,    0,    1.6018519786910204e-05, 0,    0,    0,    0,     0,     0,     0,    0,    0,
                               0,    0,    0,    0,    0,    0,    1e-9, 0,    0,    0,     0,     0,     0,    0,    0,

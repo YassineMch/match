@@ -11,20 +11,19 @@ import time
 import statistics
 
 variance_yaw=[]
-
+yaw_accel =[]
 
 def callback_marvelmind_imu(msg):   
-    global variance_yaw, mean_yaw_var
-
-    #poition
-    variance_yaw.append(msg.gyro_z / 1000)
+    global yaw_accel, mean_yaw_accel
+    # angular accel
+    yaw_accel.append(msg.gyro_z / 1000)
     # covariance matrix with variance data from stationary state of the Beacons 
-    mean_yaw_var = np.mean (variance_yaw)
+    mean_yaw_accel = np.mean (yaw_accel)
     
 if __name__ =='__main__':
     rospy.init_node('define_variance_imu')
     sub=rospy.Subscriber("/hedge2/hedge_imu_raw", hedge_imu_raw, callback_marvelmind_imu)
     time.sleep(5)
     
-    variance__yaw= statistics.variance(variance_yaw)
-    print (variance__yaw)
+    variance_yaw= statistics.variance(yaw_accel)
+    print (variance_yaw)

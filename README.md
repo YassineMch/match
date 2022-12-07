@@ -69,6 +69,7 @@
   - use plotjuggler on host pc to visualize topic data `$rosrun plotjuggler plotjuggler`
 
   * Recording of topics: `$ rosbag record --duration= /topic_name`
+  `$ rosbag record /cmd_vel /joint_states /map /map_metadata /odom /rosout /rosout_agg /scan /scout_light_control /scout_status /tf /tf_static`  
 
   * display frequency of publishing: `$rostopic hz /topicname`
 
@@ -110,3 +111,4 @@
 
 
 
+    

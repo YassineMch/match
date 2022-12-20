@@ -41,8 +41,8 @@ def callback_marvelmind_pos_2(msg_pos_2):
 # Quaterion from imu_fused data
 def callback_marvelmind_pos_3(msg_pos_imu):   
 
-    pose_out.orientation.x = 0 
-    pose_out.orientation.y = 0 
+    pose_out.orientation.x = msg_pos_imu.qx
+    pose_out.orientation.y = msg_pos_imu.qy
     pose_out.orientation.z = msg_pos_imu.qz
     pose_out.orientation.w = msg_pos_imu.qw
 

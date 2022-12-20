@@ -10,6 +10,7 @@ from sensor_msgs.msg import Imu
 from math import pi
 seq_init = 0 
 pose_out = PoseWithCovarianceStamped()
+pose_out_transformed=PoseWithCovarianceStamped()
 imu_out = Imu()
 
 x_1 = 0
@@ -54,12 +55,19 @@ def callback_marvelmind_pos_2(msg_pos_2):
     seq_init += 1
     pose_out.header.stamp = rospy.Time.now()
     pose_out.header.frame_id = 'beacon_map'
+# define header transformed marvelmind zum plotten
 
+    pose_out.header.seq = seq_init
+    seq_init += 1
+    pose_out_transformed.header.stamp = rospy.Time.now()
+    pose_out_transformed.header.frame_id = 'map'
 # mean position from Beacons pose data
-    pose_out.pose.pose.position.x = (x_1 + x_2)/2
-    pose_out.pose.pose.position.y = (y_1 + y_2)/2
+    pose_out.pose.pose.position.x = ((x_1 + x_2)/2)
+    pose_out.pose.pose.position.y = ((y_1 + y_2)/2)
     pose_out.pose.pose.position.z = 0      # mit Absicht auf null
-
+#zum plotten
+    pose_out_transformed.pose.pose.position.x = ((x_1 + x_2)/2)+1.224
+    pose_out_transformed.pose.pose.position.y = ((y_1 + y_2)/2)+0.3037
 # Quaterion from imu_fused data
 def callback_marvelmind_pos_3(msg_pos_imu):   
 
@@ -75,7 +83,7 @@ def callback_marvelmind_pos_3(msg_pos_imu):
 
     pub_1.publish(pose_out)
     pub_2.publish(imu_out)
-    
+    pub_3.publish(pose_out_transformed)
 if __name__ =='__main__':
     rospy.init_node('remap_pose_mean_covariance')
 
@@ -87,5 +95,5 @@ if __name__ =='__main__':
     sub_4 = rospy.Subscriber("/hedge2/hedge_imu_raw", hedge_imu_raw , callback_marvelmind_imu)
     pub_1 = rospy.Publisher("/position_marvelmind_with_covariance", PoseWithCovarianceStamped, queue_size=10)
     pub_2 = rospy.Publisher("/imu_marvelmind_with_covariance", Imu, queue_size=10)
-
+    pub_3 = rospy.Publisher("/marvelmind_transformed", PoseWithCovarianceStamped, queue_size=10)
     rospy.spin()

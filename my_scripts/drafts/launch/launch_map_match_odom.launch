@@ -1,7 +1,0 @@
-<launch>
-
-  <arg name="map_file" default="$(find my_scripts)/launch/floorplan/new_map.yaml"/>       <!-- path of map file -->
-  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" respawn="true" />
-  <node pkg="tf" type="static_transform_publisher" name="tf_odom_map" args="6.7 9.7 0 0 0 0 /map /odom 1"/>
-  
-</launch>

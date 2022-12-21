@@ -1,4 +1,4 @@
-<!-- This launch file is to be run on rosmaster. It will launch Rviz with pre_saved configuration. Start a node to set the initial pose abes on a 10 sec observation from the mobile beacons and assign an initian covariance matrix with a diagonal based on the pose error within 10sec observation -->
+<!-- This launch file is to be run on rosmaster. It will launch Rviz with pre_saved configuration. Start a node to set the initial pose estimation based on a 10 sec observation from the mobile beacons and assign an initianl covariance matrix with a diagonal based on the pose error within 10sec observation -->
 
 <launch>
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find my_scripts)/rviz_config.rviz"/>

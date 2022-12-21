@@ -1,3 +1,4 @@
+ <!-- Launch file to start the hedges node provided by Marvelmind to publish data in ROR topics -->
 <launch>
 
     <group ns="hedge1">

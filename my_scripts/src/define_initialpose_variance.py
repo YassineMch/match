@@ -2,6 +2,7 @@
 
 # Diesen Script berechnet die Variance der einzelnen variabeln für die Covarianzmatrix 
 # daten werden aus dem Stationary Zustand ausgewertet und der Noise des System damit ermittelt
+# daten commen aus dem Node middle point
 
 import rospy
 import math
@@ -35,9 +36,9 @@ def callback_marvelmind_pos(msg):
     y.append(msg.position.y)
     z.append(msg.position.z)
     
-    mean_x = np.mean(x)+ 1.224 # for translation into mpa fram
-    mean_y = np.mean(y)+ 0.3037 # for translation into mpa fram
-    mean_z = np.mean(z)
+    mean_x = np.mean(x)+ 1.394 # for translation into mpa frame
+    mean_y = np.mean(y)+ 0.417 # for translation into mpa frame
+    mean_z = np.mean(z) #wont be used in 2D localizastion
     
     # mean orientation from quaternion to rad
     roll.append(msg.orientation.x)

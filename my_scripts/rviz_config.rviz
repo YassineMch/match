@@ -180,7 +180,7 @@ Visualization Manager:
       Keep: 5
       Name: Odometry
       Position Tolerance: 0.10000000149011612
-      Queue Size: 10
+      Queue Size: 16
       Shape:
         Alpha: 1
         Axes Length: 1

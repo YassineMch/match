@@ -66,10 +66,10 @@ def callback_marvelmind_pos_2(msg_pos_2):
     pose_out.pose.pose.position.y = ((y_1 + y_2)/2)
     pose_out.pose.pose.position.z = 0      # mit Absicht auf null
 #zum plotten
-    pose_out_transformed.pose.pose.position.x = ((x_1 + x_2)/2)+1.224
-    pose_out_transformed.pose.pose.position.y = ((y_1 + y_2)/2)+0.3037
+    pose_out_transformed.pose.pose.position.x = ((x_1 + x_2)/2)+1.394
+    pose_out_transformed.pose.pose.position.y = ((y_1 + y_2)/2)+0.417
 # Quaterion from imu_fused data
-def callback_marvelmind_pos_3(msg_pos_imu):   
+def callback_marvelmind_pose_3(msg_pos_imu):   
 
     pose_out.pose.pose.orientation.x = 0 # mit Absicht auf null
     pose_out.pose.pose.orientation.y = 0 # mit Absicht auf null
@@ -91,7 +91,7 @@ if __name__ =='__main__':
 
     sub_1 = rospy.Subscriber("/hedge1/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_1)
     sub_2 = rospy.Subscriber("/hedge2/hedge_pos_ang", hedge_pos_ang, callback_marvelmind_pos_2)
-    sub_3 = rospy.Subscriber("/hedge1/hedge_imu_fusion", hedge_imu_fusion , callback_marvelmind_pos_3)
+    sub_3 = rospy.Subscriber("/hedge1/hedge_imu_fusion", hedge_imu_fusion , callback_marvelmind_pose_3)
     sub_4 = rospy.Subscriber("/hedge2/hedge_imu_raw", hedge_imu_raw , callback_marvelmind_imu)
     pub_1 = rospy.Publisher("/position_marvelmind_with_covariance", PoseWithCovarianceStamped, queue_size=10)
     pub_2 = rospy.Publisher("/imu_marvelmind_with_covariance", Imu, queue_size=10)

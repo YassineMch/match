@@ -1,4 +1,4 @@
-frequency: 10
+frequency: 15
 two_d_mode: true
 
 map_frame: map              # Defaults to "map" if unspecified

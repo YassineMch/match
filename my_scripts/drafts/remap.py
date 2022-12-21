@@ -38,8 +38,8 @@ def callback_marvelmind_pos(msg):
     yaw.append(msg.orientation.z)
     w.append(msg.orientation.w)
     
-    mean_x = np.mean(x)+ 1.224
-    mean_y = np.mean(y)+ 0.3037
+    mean_x = np.mean(x)+ 1.394
+    mean_y = np.mean(y)+ 0.417
     mean_z = np.mean(z)
     
     mean_roll = np.mean(roll)

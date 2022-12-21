@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-# Dieses Script dient dazu, zu der Initial Pose (tf map to odom anhand vom AMCL) upzudaten anhang der Pose-Daten von den mobielen Beacons 
+# Dieses Script dient dazu, zu der Initial Pose (tf map to odom anhand vom AMCL) upzudaten anhang der Pose-Daten von den mobielen Beacons Daten kommen aus dem node define variance
 
 import rospy
 from geometry_msgs.msg import PoseWithCovarianceStamped

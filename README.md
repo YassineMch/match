@@ -72,6 +72,7 @@
   `$ rosbag record /cmd_vel /joint_states /map /map_metadata /odom /rosout /rosout_agg /scan /scout_light_control /scout_status /tf /tf_static`  
 
   * display frequency of publishing: `$rostopic hz /topicname`
+  * synchronize ssh timing between agilex and rosmaster (on rosmaster: `$ssh agilex sudo date -s @$(date -u +"%s")`) check with shared terminal `$date`
 
   ## start the Robot and Initialisation and Kalman Filter
 

@@ -26,7 +26,7 @@ def callback_pose(msg_in):
 
     pose_removed_covariance,cov = remove_covariance(msg_in)
     
-    transform = tfBuffer.lookup_transform("map",
+    transform = tfBuffer.lookup_transform("world",
                                     msg_in.header.frame_id, #source frame
                                     rospy.Time(0), #get the tf at first available time
                                     rospy.Duration(1.0))
@@ -37,13 +37,13 @@ def callback_pose(msg_in):
     pub.publish(pose_added_covariance)
 
 if __name__=='__main__':
-    rospy.init_node("pose_transform")
+    rospy.init_node("EKF_transformed")
     
     tfBuffer = tf2_ros.Buffer(rospy.Duration(100.0))
     tf_listener = tf2_ros.TransformListener(tfBuffer)
     
-    sub_pose = rospy.Subscriber("/marvelmind_pos", PoseWithCovarianceStamped, callback_pose)
-    pub = rospy.Publisher("/transformed_pos", PoseWithCovarianceStamped, queue_size=10)
+    sub_pose = rospy.Subscriber("/pose_EKF_transformed", PoseWithCovarianceStamped, callback_pose)
+    pub = rospy.Publisher("/transformed_EKF_pos", PoseWithCovarianceStamped, queue_size=10)
     rospy.spin()
     
     

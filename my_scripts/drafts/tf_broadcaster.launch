@@ -1,0 +1,13 @@
+<launch> 
+
+
+    <node pkg="tf" type="static_transform_publisher" name="beacon_map_broadcaster" args="0 0 0 0.0383972 0 0 /map /world  100"/> 
+    <node pkg="rosbag" type="play" name="rosbagplay" args="$(find my_scripts)/Aufnahmen_fuer_Auswertung/Aufnahmen_omni_2/2022-12-20-23-13-15.bag --clock -d 5" required="true"/>
+    <node name="transfrom_amcl" pkg="my_scripts" type="amcl_transformed.py" output="screen"  />
+    <node name="transform_marvelmind" pkg="my_scripts" type="marvelmind_transformed.py" output="screen"  />
+    <node name="tranfdorm_ekf1" pkg="my_scripts" type="from_odom_to_posestamed.py" output="screen"  />
+    <node name="tranfdorm_ekf2" pkg="my_scripts" type="EKF_transformed.py" output="screen"  />
+       
+    <!--rosbag record /odometry/filtered /amcl_pose /marvelmind_transformed /transformed_AMCL_pos /transformed_marvelmind_pos /transformed_EKF_pos
+-->
+</launch>

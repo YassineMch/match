@@ -1,4 +1,4 @@
-frequency: 15
+frequency: 10
 two_d_mode: true
 
 map_frame: map              # Defaults to "map" if unspecified
@@ -10,7 +10,7 @@ publish_tf: true
 
 smooth_lagged_data: true
 dynamic_process_noise_covariance: false 
-
+use_control: true
 
 odom0: /odom
 odom0_config: [false, false, false,
@@ -20,7 +20,7 @@ odom0_config: [false, false, false,
               false, false, false]
 
 odom0_differential: true
-odom0_queue_size: 4
+odom0_queue_size: 10
 
 pose0: /position_marvelmind_with_covariance   # Hedgehog!
 pose0_config: [true,  true,  false,
@@ -32,13 +32,14 @@ pose0_config: [true,  true,  false,
 pose0_rejection_threshold: 1  
 
 pose1: /amcl_pose  
-pose0_config: [true, true,  false,
+pose1_config: [false, false,  false,
+              false, false, false,
+              true, true, false,
               false, false, true,
-              false, false, false,
-              false, false, false,
               false, false, false]
 
-pose0_rejection_threshold: 2  
+pose1_differential: true
+pose1_rejection_threshold: 10  
 
 imu0: /imu_marvelmind_with_covariance # imu from hedge2
 imu0_config: [false,  false, false,

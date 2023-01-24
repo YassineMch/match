@@ -85,30 +85,6 @@
   * in case CAN connection failed `$ candump can0` in Agilex to check if CAN connection established
   * `$ rosrun scout_bringup bringup_can2usb.bash ` to connect to CAN in case no connection has been established
     
-  ## To do List
-
-    ### Data extraction from Marvelmind and message type adapting with covariance
-    - Position (done)
-    - Angle (done)
-    - IMU angular (done)
-    ### Initializing of EKF with every new start of the system
-    - initializing the initial pose with /initialpose:
-    - position (done)
-    - Variance of position components for covariance matrix(done) 
-    - Angle with corresponding covariance (done)
-    - Variance of Yaw orientation component for covariance matrix (done) 
-    ### tuning of EKF
-    - Ground truth with laser tracker ()
-    - Data recording in bag file with /odom , /position_marvelmind_with_covariance
-      /amcl_pose and IMU ()
-    - define variance based on variance of different topics used
-    - parameter study of the effect of filter parameters: estimate and observation
-        uncertainty ()
-    ### Data processing
-    - Compare /odom /amcl_pose and /position_marvelmind_with_covariance eventually ground truth ()
-    - Compare different EKF solutions ()
-    ### frame transformation
-    - laser transformation new measurmets ()
 
 
 
